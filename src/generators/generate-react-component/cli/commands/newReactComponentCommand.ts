@@ -1,7 +1,6 @@
 import { Command } from "commander";
 import { generateReactComponent } from "../..";
 import basePath from "path";
-import { welcome } from "./../../../../utils";
 
 export const newReactComponentCommand = new Command("react:component")
   .arguments("<name>")
@@ -9,10 +8,10 @@ export const newReactComponentCommand = new Command("react:component")
   .option("-m, --memo <memo>", "Whether to use memo or not")
   .option("-f, --ref <forwardRef>", "Whether to use forwardRef or not")
   .option("-i, --index <withIndex>", "Whether to generate an index file or not")
-  .action((name, options) => {
+  .action(async (name, options) => {
     const { memo, ref, index, path } = options;
 
-    generateReactComponent.generate({
+    await generateReactComponent.generate({
       name,
       saveTo: basePath.resolve(process.cwd(), path || ""),
       forwardRef: ref && ref !== "false",
