@@ -1,2 +1,5 @@
 #!/usr/bin/env node
-require("./cjs/gnz-cli.js");
+
+const { gnzCli } = require("./../cjs");
+
+gnzCli();
