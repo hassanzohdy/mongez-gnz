@@ -1,5 +1,6 @@
 export function throwIf(condition: boolean, message: string) {
   if (condition) {
-    throw new Error(message);
+    console.log(message);
+    process.exit(1);
   }
 }

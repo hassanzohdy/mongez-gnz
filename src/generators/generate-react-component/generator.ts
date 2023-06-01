@@ -8,7 +8,7 @@ import {
 import { toStudlyCase } from "@mongez/reinforcements";
 import chalk from "chalk";
 import path from "path";
-import { throwIf } from "./../../utils";
+import { eslint, throwIf } from "./../../utils";
 import { gnReactComponent } from "./template";
 import { ReactComponentOptions } from "./types";
 
@@ -31,14 +31,22 @@ export const generate = async (options: ReactComponentOptions) => {
     throwIf(
       directoryExists(componentDirectoryPath),
       `Directory ${chalk.yellow(
-        componentDirectoryPath,
-      )} already exists. Please remove it first, or use a different directory/name.`,
+        componentDirectoryPath
+      )} already exists. Please remove it first, or use a different directory/name.`
     );
 
     makeDirectory(componentDirectoryPath);
 
     // create the component file
-    putFile(path.join(componentDirectoryPath, `${componentName}.tsx`), content);
+    const componentFullPath = path.join(
+      componentDirectoryPath,
+      `${componentName}.tsx`
+    );
+    putFile(componentFullPath, content);
+
+    eslint.formatFile(
+      path.join(componentDirectoryPath, `${componentName}.tsx`)
+    );
 
     // create the index file
     const indexPath = path.join(componentDirectoryPath, "index.ts");
@@ -46,11 +54,13 @@ export const generate = async (options: ReactComponentOptions) => {
 
     putFile(indexPath, indexContent);
 
+    eslint.formatFile(indexPath);
+
     // log for success creation of index file
     console.log(
       `Index file has been generated successfully in ${chalk.cyan(
-        path.relative(process.cwd(), indexPath).replaceAll("\\", "/"),
-      )} ${chalk.gray(`(${Date.now() - now}ms)`)}`,
+        path.relative(process.cwd(), indexPath).replaceAll("\\", "/")
+      )} ${chalk.gray(`(${Date.now() - now}ms)`)}`
     );
   } else {
     const componentPath = path.join(saveTo, `${componentName}.tsx`);
@@ -58,8 +68,8 @@ export const generate = async (options: ReactComponentOptions) => {
     throwIf(
       fileExists(componentPath),
       `Component ${chalk.green(componentName)} already exists in ${chalk.yellow(
-        saveTo,
-      )}`,
+        saveTo
+      )}`
     );
 
     putFile(componentPath, content);
@@ -67,11 +77,11 @@ export const generate = async (options: ReactComponentOptions) => {
 
   console.log(
     `Component ${chalk.green(
-      componentName,
+      componentName
     )} has been generated successfully in ${chalk.cyan(
       path
         .relative(process.cwd(), path.join(path.resolve(saveTo), componentName))
-        .replaceAll("\\", "/"),
-    )} ${chalk.gray(`(${Date.now() - now}ms)`)}`,
+        .replaceAll("\\", "/")
+    )} ${chalk.gray(`(${Date.now() - now}ms)`)}`
   );
 };

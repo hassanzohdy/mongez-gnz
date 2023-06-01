@@ -16,21 +16,29 @@ export async function gnReactComponent(options: ReactComponentOptions) {
     `,
   } = options;
 
+  const props = `${componentName}Props`;
+
+  const propsDefinition = `
+    export type ${props} = {
+      children: React.ReactNode;
+    };
+  `;
+
   const imports: string[] = incomingImports;
 
   if (forwardRef) {
-    imports.push('import React, { forwardRef } from "react";');
+    imports.push('import React from "react";');
   }
 
   if (memo) {
-    imports.push("import React, { memo } from 'react';");
+    imports.push("import React from 'react';");
   }
 
   let content = "";
 
   if (memo || forwardRef) {
     if (forwardRef && args.length === 0) {
-      args.push("props: any", "ref: any");
+      args.push(`props: ${props}`, "ref: any");
     }
 
     // the return of the string should check if the component is memo or forwardRef
@@ -40,15 +48,15 @@ export async function gnReactComponent(options: ReactComponentOptions) {
 
     if (memo && forwardRef) {
       exportStatement = `
-        const ${componentName} = memo(forwardRef(_${componentName}));
+        const ${componentName} = React.memo(React.forwardRef(_${componentName}));
       export default ${componentName};`;
     } else if (memo) {
       exportStatement = `
-        const ${componentName} = memo(_${componentName});
+        const ${componentName} = React.memo(_${componentName});
       export default ${componentName};`;
     } else if (forwardRef) {
       exportStatement = `
-        const ${componentName} = forwardRef(_${componentName});
+        const ${componentName} = React.forwardRef(_${componentName});
 
       export default ${componentName};`;
     }
@@ -75,7 +83,9 @@ export async function gnReactComponent(options: ReactComponentOptions) {
 
   const importsString = imports.join("\n");
 
-  const finalContent = importsString ? `${importsString}\n${content}` : content;
+  const finalContent = importsString
+    ? `${importsString}\n${propsDefinition}\n${content}`
+    : content;
 
   return await format.typescript(finalContent);
 }
