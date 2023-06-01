@@ -1,4 +1,5 @@
 import { fileExists } from "@mongez/fs";
+import { execSync } from "child_process";
 import { Command } from "commander";
 
 export const generateUsingNodeApi = new Command("api").action(async () => {
@@ -6,6 +7,7 @@ export const generateUsingNodeApi = new Command("api").action(async () => {
 
   if (!fileExists(filePath)) return;
 
-  // now we need to import this file
-  await import(filePath);
+  execSync(`npx ts-node ${filePath}`, {
+    stdio: "inherit",
+  });
 });
