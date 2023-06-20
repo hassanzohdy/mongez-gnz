@@ -2,6 +2,7 @@ import { trim } from "@mongez/reinforcements";
 import { Command } from "commander";
 import basePath from "path";
 import { generateMongoDBModel } from "../..";
+import { gnz } from "./../../../../main";
 
 export const generateMongoDBModelCommand = new Command("gn:model")
   .arguments("<name>")
@@ -58,17 +59,19 @@ export const generateMongoDBModelCommand = new Command("gn:model")
         }, {})
       : {};
 
-    await generateMongoDBModel.generate({
-      collection: name,
-      className,
-      columns: columnList,
-      saveTo: basePath.resolve(process.cwd(), path || ""),
-      withIndex: index !== "false",
-      fileName,
-      withMigration: migration !== "false",
-      geo: geo ? geo.split(",") : [],
-      text: text ? text.split(",") : [],
-      unique: unique ? unique.split(",") : [],
-      index: indexes ? indexes.split(",") : [],
-    });
+    await gnz.execute(
+      generateMongoDBModel.execute({
+        collection: name,
+        className,
+        columns: columnList,
+        saveTo: basePath.resolve(process.cwd(), path || ""),
+        withIndex: index !== "false",
+        fileName,
+        withMigration: migration !== "false",
+        geo: geo ? geo.split(",") : [],
+        text: text ? text.split(",") : [],
+        unique: unique ? unique.split(",") : [],
+        index: indexes ? indexes.split(",") : [],
+      }),
+    );
   });

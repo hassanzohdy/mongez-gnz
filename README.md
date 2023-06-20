@@ -278,6 +278,10 @@ Any template that ends with `(Mongez)`, it means the generated files will be usi
 
 - [ ] Generate Nextjs Component.
 - [ ] Generate Nextjs Page.
+- [ ] Generate `types` file.
+- [ ] Generate `scss` module file.
+- [ ] Generate `css` module file.
+- [ ] Generate `styled` file.
 - [ ] Generate Mongez React Module
 - [ ] Generate Mongez Moonlight Module
   - [ ] Generate Mongez Moonlight Reactive Form

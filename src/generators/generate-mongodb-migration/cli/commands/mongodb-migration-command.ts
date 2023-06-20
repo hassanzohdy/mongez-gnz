@@ -1,6 +1,7 @@
 import { Command } from "commander";
 import basePath from "path";
 import { generateMongoDBMigration } from "../..";
+import { gnz } from "./../../../../main";
 
 export const mongodbMigrationCommand = new Command("gn:migration")
   .arguments("<name>")
@@ -25,13 +26,15 @@ export const mongodbMigrationCommand = new Command("gn:migration")
   .action(async (name, options) => {
     const { model, path, indexes, unique, text, geo } = options;
 
-    await generateMongoDBMigration.generate({
-      name,
-      saveTo: basePath.resolve(process.cwd(), path || ""),
-      modelClass: model,
-      index: indexes ? indexes.split(",") : [],
-      unique: unique ? unique.split(",") : [],
-      text: text ? text.split(",") : [],
-      geo: geo ? geo.split(",") : [],
-    });
+    await gnz.execute(
+      generateMongoDBMigration.execute({
+        name,
+        saveTo: basePath.resolve(process.cwd(), path || ""),
+        modelClass: model,
+        index: indexes ? indexes.split(",") : [],
+        unique: unique ? unique.split(",") : [],
+        text: text ? text.split(",") : [],
+        geo: geo ? geo.split(",") : [],
+      }),
+    );
   });

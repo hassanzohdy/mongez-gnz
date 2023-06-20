@@ -184,9 +184,9 @@ export interface GeneratorOptions<T extends GenericObject = GenericObject> {
   /**
    * Generate function
    */
-  generate: (options: T) => Promise<void>;
+  generate: (options: T) => Promise<any>;
   /**
    * Called once the generator is executed
    */
-  onComplete?: (options: T) => Promise<void>;
+  onComplete?: (options: T) => Promise<any>;
 }

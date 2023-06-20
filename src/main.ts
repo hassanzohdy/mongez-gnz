@@ -31,7 +31,7 @@ gnz.execute = async (
     )} generator...`,
   );
 
-  await generate(optionsList);
+  const output = await generate(optionsList);
 
   spinner.stop(
     `Generator ${chalk.greenBright(
@@ -42,4 +42,6 @@ gnz.execute = async (
   );
 
   await executeOptions?.onComplete?.(optionsList, generator);
+
+  return output;
 };

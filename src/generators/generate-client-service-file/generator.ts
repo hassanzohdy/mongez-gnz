@@ -3,6 +3,7 @@
 // Code template should not be added here, use 'template.ts' instead then get the output
 // of the function and put it in the file here, this makes it easier to maintain your generator.
 import { ensureDirectory, putFile } from "@mongez/fs";
+import { toKebabCase } from "@mongez/reinforcements";
 import chalk from "chalk";
 import { showSpinner } from "./../../utils";
 import { getTemplateContents } from "./template";
@@ -11,6 +12,8 @@ import { ClientServiceFileGeneratorOptions } from "./types";
 export async function generate(optionsList: ClientServiceFileGeneratorOptions) {
   // this is just an example, you can remove it.
   const { saveTo } = optionsList;
+
+  optionsList.name = toKebabCase(optionsList.name);
 
   optionsList.saveAs ??= optionsList.name + "-service.ts";
 
@@ -28,4 +31,6 @@ export async function generate(optionsList: ClientServiceFileGeneratorOptions) {
 
   // save the content to the file
   putFile(saveTo + `/${optionsList.saveAs}`, contents);
+
+  return optionsList;
 }

@@ -65,4 +65,8 @@ export const generate = async (options: MongoDBModelGeneratorOptions) => {
   console.log(
     `${chalk.green(options.className)} model has been generated successfully`,
   );
+
+  return {
+    ...options,
+  };
 };

@@ -1,6 +1,7 @@
 import { Command } from "commander";
-import { generateReactComponent } from "../..";
 import basePath from "path";
+import { generateReactComponent } from "../..";
+import { gnz } from "./../../../../main";
 
 export const newReactComponentCommand = new Command("react:component")
   .arguments("<name>")
@@ -11,11 +12,13 @@ export const newReactComponentCommand = new Command("react:component")
   .action(async (name, options) => {
     const { memo, ref, index, path } = options;
 
-    await generateReactComponent.generate({
-      name,
-      saveTo: basePath.resolve(process.cwd(), path || ""),
-      forwardRef: ref && ref !== "false",
-      memo: memo !== "false",
-      withIndex: index !== "false",
-    });
+    await gnz.execute(
+      generateReactComponent.execute({
+        name,
+        saveTo: basePath.resolve(process.cwd(), path || ""),
+        forwardRef: ref && ref !== "false",
+        memo: memo !== "false",
+        withIndex: index !== "false",
+      }),
+    );
   });

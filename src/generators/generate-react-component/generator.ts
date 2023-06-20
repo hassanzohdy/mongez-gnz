@@ -31,8 +31,8 @@ export const generate = async (options: ReactComponentOptions) => {
     throwIf(
       directoryExists(componentDirectoryPath),
       `Directory ${chalk.yellow(
-        componentDirectoryPath
-      )} already exists. Please remove it first, or use a different directory/name.`
+        componentDirectoryPath,
+      )} already exists. Please remove it first, or use a different directory/name.`,
     );
 
     makeDirectory(componentDirectoryPath);
@@ -40,12 +40,12 @@ export const generate = async (options: ReactComponentOptions) => {
     // create the component file
     const componentFullPath = path.join(
       componentDirectoryPath,
-      `${componentName}.tsx`
+      `${componentName}.tsx`,
     );
     putFile(componentFullPath, content);
 
     eslint.formatFile(
-      path.join(componentDirectoryPath, `${componentName}.tsx`)
+      path.join(componentDirectoryPath, `${componentName}.tsx`),
     );
 
     // create the index file
@@ -59,8 +59,8 @@ export const generate = async (options: ReactComponentOptions) => {
     // log for success creation of index file
     console.log(
       `Index file has been generated successfully in ${chalk.cyan(
-        path.relative(process.cwd(), indexPath).replaceAll("\\", "/")
-      )} ${chalk.gray(`(${Date.now() - now}ms)`)}`
+        path.relative(process.cwd(), indexPath).replaceAll("\\", "/"),
+      )} ${chalk.gray(`(${Date.now() - now}ms)`)}`,
     );
   } else {
     const componentPath = path.join(saveTo, `${componentName}.tsx`);
@@ -68,8 +68,8 @@ export const generate = async (options: ReactComponentOptions) => {
     throwIf(
       fileExists(componentPath),
       `Component ${chalk.green(componentName)} already exists in ${chalk.yellow(
-        saveTo
-      )}`
+        saveTo,
+      )}`,
     );
 
     putFile(componentPath, content);
@@ -77,11 +77,11 @@ export const generate = async (options: ReactComponentOptions) => {
 
   console.log(
     `Component ${chalk.green(
-      componentName
+      componentName,
     )} has been generated successfully in ${chalk.cyan(
       path
         .relative(process.cwd(), path.join(path.resolve(saveTo), componentName))
-        .replaceAll("\\", "/")
-    )} ${chalk.gray(`(${Date.now() - now}ms)`)}`
+        .replaceAll("\\", "/"),
+    )} ${chalk.gray(`(${Date.now() - now}ms)`)}`,
   );
 };

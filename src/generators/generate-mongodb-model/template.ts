@@ -81,8 +81,7 @@ export async function generateModelIndexContent(
   `;
 
   if (withMigration) {
-    content += `
-      export * from './migration';
+    content += `export * from './migration';
     `;
   }
 

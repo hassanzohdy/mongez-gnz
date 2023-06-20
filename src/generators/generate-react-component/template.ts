@@ -26,12 +26,8 @@ export async function gnReactComponent(options: ReactComponentOptions) {
 
   const imports: string[] = incomingImports;
 
-  if (forwardRef) {
+  if (forwardRef || memo) {
     imports.push('import React from "react";');
-  }
-
-  if (memo) {
-    imports.push("import React from 'react';");
   }
 
   let content = "";
@@ -39,6 +35,8 @@ export async function gnReactComponent(options: ReactComponentOptions) {
   if (memo || forwardRef) {
     if (forwardRef && args.length === 0) {
       args.push(`props: ${props}`, "ref: any");
+    } else {
+      args.push(`props: ${props}`);
     }
 
     // the return of the string should check if the component is memo or forwardRef
@@ -70,6 +68,7 @@ export async function gnReactComponent(options: ReactComponentOptions) {
       ${exportStatement}
       `;
   } else {
+    args.push(`props: ${props}`);
     content = `export default function ${componentName}(${args.join(", ")}) {
       ${options.beforeRenderContent || ""}
       return (
