@@ -141,7 +141,6 @@ export const generate = async (options: WarlockModuleOptions) => {
   putFile(path.join(saveTo + "/utils", `types.ts`), `// types list`);
 
   if (options.withLocales) {
-    ensureDirectory(saveTo + "/locales");
     putFile(
       path.join(saveTo + "/utils/locales.ts"),
       await getLocalesContent(options),

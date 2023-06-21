@@ -36,7 +36,7 @@ export async function generateModuleRoutesContent(
   const restful = `restful${toStudlyCase(pluralize(options.name))}`;
 
   const content = `
-  import { listActiveResources, router } from "@mongez/warlock";
+  import { router } from "@mongez/warlock";
   import { guardedAdmin, publicRoutes } from "app/utils/router";
   import ${moduleListHandler} from "${moduleListHandlerPath}";
   import ${singleHandlerName} from "${singleHandlerPath}";
