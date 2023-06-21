@@ -137,6 +137,7 @@ export const generate = async (options: ReactMongezOptions) => {
     console.log(
       `Updating ${chalk.green("urls.ts")} file in ${chalk.yellow(saveTo)}`,
     );
+
     putFile(
       saveTo + "/utils/urls.ts",
       await updateUrlsFile({
