@@ -24,6 +24,7 @@ const inputsMap = {
   options: "selectOptions",
   select: "selectRequest",
   multiSelect: "multiSelectInput",
+  published: "publishedInput",
 };
 
 function getInputsList(inputs?: Record<string, string>) {
@@ -81,7 +82,7 @@ export async function generateReactiveFormTemplate(
     const singleName = "${options.singleName}";
     ${service}
 
-    const inputs = [${parsedInputs}];
+    const inputs = [${parsedInputs}, publishedInput()];
 
 const ${componentName} = createReactForm(reactiveForm => {
   reactiveForm

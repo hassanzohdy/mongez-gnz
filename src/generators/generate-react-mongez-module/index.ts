@@ -18,4 +18,6 @@ export const generateReactMongez = createGenerator<ReactMongezOptions>({
   generate,
 });
 
+export const generateReactMongezComponent = generateReactMongez;
+
 registerGenerator(generateReactMongez);
