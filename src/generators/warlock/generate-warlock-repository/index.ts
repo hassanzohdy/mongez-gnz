@@ -2,6 +2,7 @@ import { createGenerator, registerGenerator } from "../../../generators-list";
 import { newWarlockRepositoryCommand } from "./cli/commands/new-warlock-repository-command";
 import { generate } from "./generator";
 import { WarlockRepositoryOptions } from "./types";
+export * from "./types";
 
 export const generateWarlockRepository =
   createGenerator<WarlockRepositoryOptions>({

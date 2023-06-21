@@ -2,6 +2,7 @@ import { createGenerator, registerGenerator } from "./../../generators-list";
 import { newMoonlightModuleCommand } from "./cli/commands/new-react-moonlight-module-command";
 import { generate } from "./generator";
 import { ReactMoonlightOptions } from "./types";
+export * from "./types";
 
 export const generateMoonlightModule = createGenerator<ReactMoonlightOptions>({
   name: "generate-react-moonlight-module",

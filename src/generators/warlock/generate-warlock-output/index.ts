@@ -2,6 +2,7 @@ import { createGenerator, registerGenerator } from "./../../../generators-list";
 import { newWarlockOutputCommand } from "./cli/commands/new-warlock-output-command";
 import { generate } from "./generator";
 import { WarlockOutputOptions } from "./types";
+export * from "./types";
 
 export const generateWarlockOutput = createGenerator<WarlockOutputOptions>({
   name: "generate-warlock-output",

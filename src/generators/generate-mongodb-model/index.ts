@@ -2,6 +2,7 @@ import { createGenerator, registerGenerator } from "./../../generators-list";
 import { generateMongoDBModelCommand } from "./cli/commands/generate-mongodb-model-command";
 import { generate } from "./generator";
 import { MongoDBModelGeneratorOptions } from "./types";
+export * from "./types";
 
 export const generateMongoDBModel =
   createGenerator<MongoDBModelGeneratorOptions>({

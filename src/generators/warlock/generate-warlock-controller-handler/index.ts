@@ -2,6 +2,7 @@ import { createGenerator, registerGenerator } from "../../../generators-list";
 import { newWarlockHandlerCommand } from "./cli/commands/new-warlock-handler-command";
 import { generate } from "./generator";
 import { WarlockHandlerOptions } from "./types";
+export * from "./types";
 
 export const generateWarlockHandler = createGenerator<WarlockHandlerOptions>({
   name: "generate-warlock-handler",

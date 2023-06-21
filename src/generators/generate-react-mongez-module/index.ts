@@ -2,6 +2,7 @@ import { createGenerator, registerGenerator } from "./../../generators-list";
 import { newReactMongezCommand } from "./cli/commands/new-react-mongez-module-command";
 import { generate } from "./generator";
 import { ReactMongezOptions } from "./types";
+export * from "./types";
 
 export const generateReactMongez = createGenerator<ReactMongezOptions>({
   name: "generate-react-mongez-module",

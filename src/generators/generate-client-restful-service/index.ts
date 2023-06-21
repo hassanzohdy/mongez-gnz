@@ -5,6 +5,7 @@
 import { createGenerator } from "./../../generators-list";
 import { generate } from "./generator";
 import { ClientRestfulServiceGeneratorOptions } from "./types";
+export * from "./types";
 
 export const generateGenerateClientRestfulService =
   createGenerator<ClientRestfulServiceGeneratorOptions>({

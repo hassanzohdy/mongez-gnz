@@ -5,6 +5,7 @@
 import { createGenerator } from "./../../generators-list";
 import { generate } from "./generator";
 import { ClientServiceFileGeneratorOptions } from "./types";
+export * from "./types";
 
 export const generateGenerateClientServiceFile =
   createGenerator<ClientServiceFileGeneratorOptions>({

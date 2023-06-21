@@ -2,6 +2,7 @@ import { createGenerator, registerGenerator } from "./../../generators-list";
 import { mongodbMigrationCommand } from "./cli/commands/mongodb-migration-command";
 import { generate } from "./generator";
 import { MongoDBMigrationOptions } from "./types";
+export * from "./types";
 
 export const generateMongoDBMigration =
   createGenerator<MongoDBMigrationOptions>({
