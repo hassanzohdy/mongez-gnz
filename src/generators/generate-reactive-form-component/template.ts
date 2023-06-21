@@ -69,7 +69,13 @@ export async function generateReactiveFormTemplate(
     );
   }
 
-  const parsedInputs = parseInputs(options.inputs);
+  let parsedInputs = parseInputs(options.inputs);
+
+  if (parsedInputs) {
+    parsedInputs = `${parsedInputs}, publishedInput()`;
+  } else {
+    parsedInputs = "publishedInput()";
+  }
 
   const importsString = imports.join("\n");
   const service = options.serviceName
@@ -82,7 +88,7 @@ export async function generateReactiveFormTemplate(
     const singleName = "${options.singleName}";
     ${service}
 
-    const inputs = [${parsedInputs}, publishedInput()];
+    const inputs = [${parsedInputs}];
 
 const ${componentName} = createReactForm(reactiveForm => {
   reactiveForm

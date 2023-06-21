@@ -99,11 +99,13 @@ export async function generateSuperTableTemplate(
 }
 
 export function parseColumns(columns?: Record<string, string>) {
-  if (!columns || Is.empty(columns)) return "";
+  if (!columns) {
+    columns = {};
+  }
 
   const parsedColumns = Object.keys(columns)
     .map(name => {
-      const [textType, ...options] = columns[name].split(".");
+      const [textType, ...options] = (columns as any)[name].split(".");
 
       if (!textType) return "";
 
@@ -146,8 +148,6 @@ export function parseColumns(columns?: Record<string, string>) {
 }
 
 export function parseFilters(filters: any) {
-  if (!filters) return "";
-
   return `
     activeFilter()
   `;
