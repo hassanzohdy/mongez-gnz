@@ -2,12 +2,15 @@ import { ensureDirectory, fileExists, putFile } from "@mongez/fs";
 import { rtrim, toKebabCase, toStudlyCase } from "@mongez/reinforcements";
 import chalk from "chalk";
 import path from "path";
+import pluralize from "pluralize";
 import { throwIf } from "./../../../utils";
 import { gnWarlockOutput } from "./template";
 import { WarlockOutputOptions } from "./types";
 
 export const generate = async (options: WarlockOutputOptions) => {
   const { name, saveTo } = options;
+
+  options.name = pluralize(rtrim(name, "output"), 1);
 
   ensureDirectory(saveTo);
 

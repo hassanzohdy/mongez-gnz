@@ -16,12 +16,16 @@ export async function generateModelContent(
     embedded = ["id"],
   } = options;
 
+  if (!columns.isActive) {
+    columns.isActive = "boolean";
+  }
+
   const outputImport = outputClass
     ? `import {${outputClass}} from "${outputClassPath}";`
     : "";
 
   const content = `
-    import { Casts, Document, Model } from "@mongez/mongodb";
+    import { Casts, Document, Model, ModelSync } from "@mongez/mongodb";
     ${outputImport}
   
     export class ${className} extends Model {
@@ -41,6 +45,15 @@ export async function generateModelContent(
           : ""
       }
     
+      /**
+       * List of models to sync with
+       * To sync with a single embedded document use: [User.sync("city")], 
+       * this will update the city sub-document to all users when city model is updated.
+       * To sync with multiple embedded documents use: [Post.syncMany("keywords")],
+       * This will update the keywords sub-document to all posts when keywords model is updated.
+       */
+      public syncWith: ModelSync[] = [];
+
       /**
        * Default value for model data
        * Works only when creating new records
