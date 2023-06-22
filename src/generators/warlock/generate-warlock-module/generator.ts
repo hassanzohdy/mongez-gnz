@@ -142,7 +142,7 @@ export const generate = async (options: WarlockModuleOptions) => {
 
   if (options.withLocales) {
     putFile(
-      path.join(saveTo + "/localization/index.ts"),
+      path.join(saveTo + "/utils/locales.ts"),
       await getLocalesContent(options),
     );
 
@@ -155,8 +155,10 @@ export const generate = async (options: WarlockModuleOptions) => {
         originalSaveDirectory + "/localization/index.ts",
 
         originalSaveDirectory.endsWith("app")
-          ? `import "app/${toKebabCase(options.name)}/locales";`
-          : `import "./${toKebabCase(options.name)}/locales";`,
+          ? `import "app/${toKebabCase(options.name)}/utils/locales";
+`
+          : `import "./${toKebabCase(options.name)}/utils/locales";
+`,
       );
     }
   }
