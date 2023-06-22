@@ -142,17 +142,17 @@ export const generate = async (options: WarlockModuleOptions) => {
 
   if (options.withLocales) {
     putFile(
-      path.join(saveTo + "/utils/locales.ts"),
+      path.join(saveTo + "/localization/index.ts"),
       await getLocalesContent(options),
     );
 
-    // now check if the original save directory has `/locales.ts` file
+    // now check if the original save directory has `/localization/index.ts` file
     // if so, then append the event to the file
-    if (fileExists(originalSaveDirectory + "/utils/locales.ts")) {
+    if (fileExists(originalSaveDirectory + "/localization/index.ts")) {
       // if the original save directory is the `app` directory, then we'll use the alias
       // otherwise, we'll use the relative path
       prependFile(
-        originalSaveDirectory + "/utils/locales.ts",
+        originalSaveDirectory + "/localization/index.ts",
 
         originalSaveDirectory.endsWith("app")
           ? `import "app/${toKebabCase(options.name)}/locales";`
