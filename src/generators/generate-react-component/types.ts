@@ -12,6 +12,12 @@ export type ReactComponentOptions = {
    */
   imports?: string[];
   /**
+   * Create component with props and props type
+   *
+   * @default true
+   */
+  withProps?: boolean;
+  /**
    * Define components arguments list
    * Please note if this is defined, you've to add the ref argument manually
    */

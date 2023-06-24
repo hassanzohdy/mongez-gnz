@@ -76,9 +76,9 @@ export const generate = async (options: ReactMoonlightOptions) => {
       serviceName: toCamelCase(options.name) + "Service",
       formComponentName: options.name + "Form",
       formComponentPath: `./${toStudlyCase(options.name)}Form`,
-      servicePath: `apps/${options.appName}/services/${toKebabCase(
+      servicePath: `apps/${options.appName}/${toKebabCase(
         options.name,
-      )}-service`,
+      )}/services/${toKebabCase(options.name)}-service`,
     }),
   );
 
@@ -92,9 +92,9 @@ export const generate = async (options: ReactMoonlightOptions) => {
       withIndex: true,
       inputs: options.inputs || {},
       serviceName: toCamelCase(options.name) + "Service",
-      servicePath: `apps/${options.appName}/services/${toKebabCase(
+      servicePath: `apps/${options.appName}/${toKebabCase(
         options.name,
-      )}-service`,
+      )}/services/${toKebabCase(options.name)}-service`,
     }),
   );
 

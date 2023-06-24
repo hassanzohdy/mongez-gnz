@@ -18,16 +18,6 @@ import { singular } from "pluralize";
 import { format, throwIf } from "../../utils";
 import { MongezReactModuleGeneratorOptions } from "./types";
 
-export async function getTemplateContents(
-  optionsList: MongezReactModuleGeneratorOptions,
-) {
-  const contents = `// Add the content here
-  `;
-
-  // prettify the content
-  return await format.typescript(contents);
-}
-
 export async function getProviderTemplate() {
   return await format.typescript(`
     import "./routes";

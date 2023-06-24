@@ -7,6 +7,7 @@ export async function gnReactComponent(options: ReactComponentOptions) {
     memo,
     name: componentName,
     forwardRef,
+    withProps = true,
     args = [],
     imports: incomingImports = [],
     renderContent = `    
@@ -18,11 +19,13 @@ export async function gnReactComponent(options: ReactComponentOptions) {
 
   const props = `${componentName}Props`;
 
-  const propsDefinition = `
+  const propsDefinition = withProps
+    ? `
     export type ${props} = {
       children: React.ReactNode;
-    };
-  `;
+    };    
+  `
+    : "";
 
   const imports: string[] = incomingImports;
 
@@ -68,7 +71,7 @@ export async function gnReactComponent(options: ReactComponentOptions) {
       ${exportStatement}
       `;
   } else {
-    args.push(`props: ${props}`);
+    args.push(withProps ? `props: ${props}` : "");
     content = `export default function ${componentName}(${args.join(", ")}) {
       ${options.beforeRenderContent || ""}
       return (
@@ -82,9 +85,7 @@ export async function gnReactComponent(options: ReactComponentOptions) {
 
   const importsString = imports.join("\n");
 
-  const finalContent = importsString
-    ? `${importsString}\n${propsDefinition}\n${content}`
-    : content;
+  const finalContent = `${importsString}\n${propsDefinition}${content}`;
 
   return await format.typescript(finalContent);
 }
