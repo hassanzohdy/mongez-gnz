@@ -26,7 +26,7 @@ export const generate = async (options: WarlockModuleOptions) => {
   // generate output
   const outputOptions = await gnz.execute(
     generateWarlockOutput.execute({
-      name: options.name,
+      name: pluralize(options.name, 1),
       saveTo: saveTo + "/output",
       outputKeys: options.columns as any,
     }),

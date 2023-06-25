@@ -1,5 +1,10 @@
 import { ensureDirectory, fileExists, putFile } from "@mongez/fs";
-import { rtrim, toKebabCase, toStudlyCase } from "@mongez/reinforcements";
+import {
+  rtrim,
+  toCamelCase,
+  toKebabCase,
+  toStudlyCase,
+} from "@mongez/reinforcements";
 import chalk from "chalk";
 import path from "path";
 import pluralize from "pluralize";
@@ -9,6 +14,7 @@ import { generateModelContent, generateModelIndexContent } from "./template";
 import { MongoDBModelGeneratorOptions } from "./types";
 
 export const generate = async (options: MongoDBModelGeneratorOptions) => {
+  options.collection = pluralize(toCamelCase(options.collection));
   options.className ||= toStudlyCase(pluralize(options.collection, 1));
   options.fileName ||= toKebabCase(pluralize(options.collection, 1)) + ".ts";
 
