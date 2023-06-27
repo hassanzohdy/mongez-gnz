@@ -35,7 +35,9 @@ export const generate = async (options: WarlockOutputOptions) => {
   putFile(Path, content);
 
   console.log(
-    ` ${chalk.green(name)} has been generated successfully in ${chalk.cyan(
+    ` ${chalk.green(
+      options.name,
+    )} has been generated successfully in ${chalk.cyan(
       path
         .relative(process.cwd(), path.join(path.resolve(saveTo), options.name))
         .replaceAll("\\", "/"),

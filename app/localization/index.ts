@@ -1,0 +1,14 @@
+import "app/brands/utils/locales";
+import "app/quiz-students/utils/locales";
+import "app/keywords/utils/locales";
+import "app/session-students/utils/locales";
+import "app/general/utils/locales";
+import "app/grades/utils/locales";
+import "app/lessons/utils/locales";
+import "app/notifications/utils/locales";
+import "app/posts/utils/locales";
+import "app/questions/utils/locales";
+import "app/quiz/utils/locales";
+import "app/sessions/utils/locales";
+import "app/student-groups/utils/locales";
+import "app/users/utils/locales";
