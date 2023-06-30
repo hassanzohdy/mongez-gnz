@@ -73,7 +73,9 @@ export const generate = async (options: ReactMoonlightOptions) => {
       saveTo: directoryPath + "/" + saveComponentsIn,
       name: options.name,
       asPage: true,
-      columns: options.inputs || {},
+      columns: options.inputs || {
+        name: "string",
+      },
       memo: true,
       withIndex: true,
       serviceName: toCamelCase(options.name) + "Service",
@@ -94,7 +96,9 @@ export const generate = async (options: ReactMoonlightOptions) => {
       memo: true,
       withIndex: true,
       singleName: pluralize(options.name, 1),
-      inputs: options.inputs || {},
+      inputs: options.inputs || {
+        name: "string",
+      },
       serviceName: toCamelCase(options.name) + "Service",
       servicePath: `apps/${options.appName}/${toKebabCase(
         options.name,
