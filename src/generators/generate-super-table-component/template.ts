@@ -144,6 +144,7 @@ export function parseColumns(columns?: Record<string, string>) {
     .filter(Boolean);
 
   parsedColumns.unshift("idColumn()");
+  parsedColumns.push("actionsColumn()");
 
   return parsedColumns.join(",\n");
 }
