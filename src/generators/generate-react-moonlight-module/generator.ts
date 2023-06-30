@@ -17,6 +17,7 @@ import { generateReactiveFormComponent } from "../generate-reactive-form-compone
 import { generateSuperTableComponent } from "../generate-super-table-component";
 import { generateRoutesFile, updateUrlsFile } from "./template";
 import { ReactMoonlightOptions } from "./types";
+import pluralize from "pluralize";
 
 export const generate = async (options: ReactMoonlightOptions) => {
   options.name = toKebabCase(options.name);
@@ -74,7 +75,7 @@ export const generate = async (options: ReactMoonlightOptions) => {
       memo: true,
       withIndex: true,
       serviceName: toCamelCase(options.name) + "Service",
-      formComponentName: options.name + "Form",
+      formComponentName: pluralize(options.name, 1) + "Form",
       formComponentPath: `./${toStudlyCase(options.name)}Form`,
       servicePath: `apps/${options.appName}/${toKebabCase(
         options.name,
