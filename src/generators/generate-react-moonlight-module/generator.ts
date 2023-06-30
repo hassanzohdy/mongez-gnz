@@ -10,6 +10,7 @@ import {
 import { toCamelCase, toKebabCase, toStudlyCase } from "@mongez/reinforcements";
 import chalk from "chalk";
 import path from "path";
+import pluralize from "pluralize";
 import { throwIf } from "../..//utils";
 import { gnz } from "../../main";
 import { generateGenerateClientRestfulService } from "../generate-client-restful-service";
@@ -17,7 +18,6 @@ import { generateReactiveFormComponent } from "../generate-reactive-form-compone
 import { generateSuperTableComponent } from "../generate-super-table-component";
 import { generateRoutesFile, updateUrlsFile } from "./template";
 import { ReactMoonlightOptions } from "./types";
-import pluralize from "pluralize";
 
 export const generate = async (options: ReactMoonlightOptions) => {
   options.name = toKebabCase(options.name);
@@ -65,6 +65,8 @@ export const generate = async (options: ReactMoonlightOptions) => {
     saveComponentsIn = "pages";
   }
 
+  const formComponentName = toStudlyCase(pluralize(options.name, 1)) + "Form";
+
   // now let's generate the super table page
   await gnz.execute(
     generateSuperTableComponent.execute({
@@ -75,22 +77,23 @@ export const generate = async (options: ReactMoonlightOptions) => {
       memo: true,
       withIndex: true,
       serviceName: toCamelCase(options.name) + "Service",
-      formComponentName: pluralize(options.name, 1) + "Form",
-      formComponentPath: `./${toStudlyCase(options.name)}Form`,
+      formComponentName: formComponentName,
+      formComponentPath: `./${formComponentName}`,
       servicePath: `apps/${options.appName}/${toKebabCase(
         options.name,
       )}/services/${toKebabCase(options.name)}-service`,
     }),
   );
 
-  // now create the page
+  // now create the reactive form
   await gnz.execute(
     generateReactiveFormComponent.execute({
       saveTo:
         directoryPath + "/" + saveComponentsIn + "/" + options.name + "Page",
-      name: options.name + "Form",
+      name: formComponentName,
       memo: true,
       withIndex: true,
+      singleName: pluralize(options.name, 1),
       inputs: options.inputs || {},
       serviceName: toCamelCase(options.name) + "Service",
       servicePath: `apps/${options.appName}/${toKebabCase(
