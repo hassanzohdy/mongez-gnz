@@ -74,7 +74,12 @@ export const generate = async (options: ReactMoonlightOptions) => {
       name: options.name,
       asPage: true,
       columns: options.inputs || {
+        id: "id",
         name: "string",
+      },
+      filters: options.filters || {
+        id: "text",
+        name: "text",
       },
       memo: true,
       withIndex: true,

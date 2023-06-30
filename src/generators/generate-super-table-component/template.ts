@@ -8,7 +8,8 @@ const columnsMap = {
   text: "textColumn",
   email: "emailColumn",
   number: "numberColumn",
-  image: "circleImageColumn",
+  image: "circleImage",
+  id: `idColumn`,
 };
 
 function getColumnsImports(columns?: Record<string, string>) {

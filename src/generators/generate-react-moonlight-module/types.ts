@@ -26,6 +26,12 @@ export type ReactMoonlightOptions = {
     [key: string]: string;
   };
   /**
+   * Super table filters
+   */
+  filters?: {
+    [key: string]: string;
+  };
+  /**
    * Add the module to the app-modules.json
    * Works only if the save to path has the modules.json file
    *
