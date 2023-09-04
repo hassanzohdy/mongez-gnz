@@ -1,4 +1,4 @@
-import { Casts, Document, Model, ModelSync } from "@mongez/mongodb";
+import { Casts, Document, Model, ModelSync } from "@mongez/monpulse";
 import { BrandOutput } from "./../../output/brand-output";
 
 export class Brand extends Model {

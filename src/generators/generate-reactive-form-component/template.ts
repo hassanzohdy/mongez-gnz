@@ -1,5 +1,5 @@
 import { toCamelCase } from "@mongez/reinforcements";
-import Is from "@mongez/supportive-is";
+import { isEmpty } from "@mongez/supportive-is";
 import { format } from "./../../utils";
 import { ReactiveFormComponentOptions } from "./types";
 
@@ -28,7 +28,7 @@ const inputsMap = {
 };
 
 function getInputsList(inputs?: Record<string, string>) {
-  if (!inputs || Is.empty(inputs)) return [];
+  if (!inputs || isEmpty(inputs)) return [];
 
   return Object.keys(inputs)
     .map(name => {
@@ -106,7 +106,7 @@ const ${componentName} = createReactForm(reactiveForm => {
 }
 
 export function parseInputs(inputs?: Record<string, string>) {
-  if (!inputs || Is.empty(inputs)) return "";
+  if (!inputs || isEmpty(inputs)) return "";
 
   const parsedInputs = Object.keys(inputs)
     .map(name => {

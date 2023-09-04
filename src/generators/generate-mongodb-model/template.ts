@@ -25,7 +25,7 @@ export async function generateModelContent(
     : "";
 
   const content = `
-    import { Casts, Document, Model, ModelSync } from "@mongez/mongodb";
+    import { Casts, Document, Model, ModelSync } from "@mongez/monpulse";
     ${outputImport}
   
     export class ${className} extends Model {

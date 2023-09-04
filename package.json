@@ -2,16 +2,16 @@
     "name": "@mongez/gnz",
     "description": "Generator Z, the next generation of scaffolding tools.",
     "main": "src/index.ts",
-    "version": "3.0.16",
+    "version": "3.0.18",
     "license": "MIT",
     "bin": {
         "gnz": "./bin/gnz"
     },
     "dependencies": {
         "@mongez/concat-route": "^1.0.0",
-        "@mongez/fs": "^3.0.1",
-        "@mongez/reinforcements": "^2.3.7",
-        "@mongez/supportive-is": "^1.0.12",
+        "@mongez/fs": "^3.0.4",
+        "@mongez/reinforcements": "^2.3.8",
+        "@mongez/supportive-is": "^2.0.0",
         "commander": "^10.0.1",
         "eslint": "^8.42.0",
         "chalk": "^4.1.2",

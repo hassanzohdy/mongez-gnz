@@ -1,5 +1,5 @@
 import "app/brands/routes";
-import { onceConnected } from "@mongez/mongodb";
+import { onceConnected } from "@mongez/monpulse";
 import "app/cities/routes";
 import "app/contact-us/routes";
 import "app/faq/routes";

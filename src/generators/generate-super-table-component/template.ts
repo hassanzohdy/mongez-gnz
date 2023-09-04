@@ -1,5 +1,5 @@
 import { rtrim, toCamelCase } from "@mongez/reinforcements";
-import Is from "@mongez/supportive-is";
+import { isEmpty } from "@mongez/supportive-is";
 import { format } from "../../utils";
 import { SuperTableComponentOptions } from "./types";
 
@@ -13,7 +13,7 @@ const columnsMap = {
 };
 
 function getColumnsImports(columns?: Record<string, string>) {
-  if (!columns || Is.empty(columns)) return [];
+  if (!columns || isEmpty(columns)) return [];
 
   return Object.keys(columns)
     .map(name => {

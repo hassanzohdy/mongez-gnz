@@ -74,7 +74,6 @@ export const generate = async (options: ReactMoonlightOptions) => {
       name: options.name,
       asPage: true,
       columns: options.inputs || {
-        id: "id",
         name: "string",
       },
       filters: options.filters || {
@@ -96,7 +95,12 @@ export const generate = async (options: ReactMoonlightOptions) => {
   await gnz.execute(
     generateReactiveFormComponent.execute({
       saveTo:
-        directoryPath + "/" + saveComponentsIn + "/" + options.name + "Page",
+        directoryPath +
+        "/" +
+        saveComponentsIn +
+        "/" +
+        toStudlyCase(options.name) +
+        "Page",
       name: formComponentName,
       memo: true,
       withIndex: true,

@@ -1,4 +1,4 @@
-import Is from "@mongez/supportive-is";
+import { isEmpty } from "@mongez/supportive-is";
 import { format, toJson } from "../../../utils";
 import { WarlockHandlerOptions } from "./types";
 
@@ -12,7 +12,7 @@ export async function gnWarlockHandler(options: WarlockHandlerOptions) {
 
   let validation = "";
 
-  if (!Is.empty(rules) || withValidation) {
+  if (!isEmpty(rules) || withValidation) {
     let content = "";
 
     if (withValidation) {
@@ -23,7 +23,7 @@ export async function gnWarlockHandler(options: WarlockHandlerOptions) {
       },`;
     }
 
-    if (!Is.empty(rules)) {
+    if (!isEmpty(rules)) {
       content += `rules: ${toJson(rules)},`;
     }
 

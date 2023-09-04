@@ -184,7 +184,7 @@ src
 The output of the `index.ts` file is:
 
 ```ts
-import { Casts, Document, Model } from "@mongez/mongodb";
+import { Casts, Document, Model } from "@mongez/monpulse";
 
 export class User extends Model {
   /**
