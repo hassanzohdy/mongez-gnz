@@ -50,7 +50,8 @@ export const generate = async (options: NextClientComponentOptions) => {
 
     // create the index file
     const indexPath = path.join(componentDirectoryPath, "index.ts");
-    const indexContent = `export { default } from "./${componentName}";`;
+    const indexContent = `export { default } from "./${componentName}";
+`;
 
     putFile(indexPath, indexContent);
 

@@ -1,9 +1,9 @@
 import { Command } from "commander";
 import basePath from "path";
-import { generateReactComponent } from "../..";
+import { generateNextClientReactComponent } from "../..";
 import { gnz } from "../../../../main";
 
-export const newReactComponentCommand = new Command("react:component")
+export const generateNextjsClientComponentCommand = new Command("next:cc")
   .arguments("<name>")
   .option("-p, --path <path>", "Path to save the component to")
   .option("-m, --memo <memo>", "Whether to use memo or not")
@@ -13,11 +13,11 @@ export const newReactComponentCommand = new Command("react:component")
     const { memo, ref, index, path } = options;
 
     await gnz.execute(
-      generateReactComponent.execute({
+      generateNextClientReactComponent.execute({
         name,
         saveTo: basePath.resolve(process.cwd(), path || ""),
         forwardRef: ref && ref !== "false",
-        memo: memo !== "false",
+        memo: memo ? memo !== "false" : false,
         withIndex: index !== "false",
       }),
     );

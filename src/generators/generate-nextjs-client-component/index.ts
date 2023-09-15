@@ -1,5 +1,5 @@
 import { createGenerator, registerGenerator } from "../../generators-list";
-import { newReactComponentCommand } from "./cli/commands/newReactComponentCommand";
+import { generateNextjsClientComponentCommand } from "./cli/commands/generate-nextjs-client-component-command";
 import { generate } from "./generator";
 import { NextClientComponentOptions } from "./types";
 export * from "./types";
@@ -9,7 +9,7 @@ export const generateNextClientReactComponent =
     name: "generate-next-client-component",
     label: "Generate Next Client Component",
     cliOptions: {
-      commands: [newReactComponentCommand],
+      commands: [generateNextjsClientComponentCommand],
     },
     defaultOptions: {
       withIndex: true,
