@@ -1,7 +1,7 @@
-import { format } from "./../../utils";
-import { ReactComponentOptions } from "./types";
+import { format } from "../../utils";
+import { NextClientComponentOptions } from "./types";
 
-export async function gnReactComponent(options: ReactComponentOptions) {
+export async function gnReactComponent(options: NextClientComponentOptions) {
   //
   const {
     memo,
@@ -85,7 +85,8 @@ export async function gnReactComponent(options: ReactComponentOptions) {
 
   const importsString = imports.join("\n");
 
-  const finalContent = `${importsString}\n${propsDefinition}${content}`;
+  const finalContent = `"use client";
+${importsString}\n${propsDefinition}${content}`;
 
   return await format.typescript(finalContent);
 }
