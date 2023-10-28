@@ -1,4 +1,4 @@
-import { ensureDirectory, fileExists, prependFile, putFile } from "@mongez/fs";
+import { ensureDirectory, putFile } from "@mongez/fs";
 import { toCamelCase, toKebabCase, toStudlyCase } from "@mongez/reinforcements";
 import chalk from "chalk";
 import path from "path";
@@ -14,8 +14,6 @@ import { WarlockModuleOptions } from "./types";
 
 export const generate = async (options: WarlockModuleOptions) => {
   const now = Date.now();
-
-  const originalSaveDirectory = options.saveTo;
 
   options.saveTo = path.resolve(options.saveTo, toKebabCase(options.name));
 
@@ -112,23 +110,6 @@ export const generate = async (options: WarlockModuleOptions) => {
 
   if (options.withEvents) {
     ensureDirectory(saveTo + "/events");
-    putFile(path.join(saveTo + "/events", `index.ts`), `// events list`);
-
-    // now check if the saving directory has `/events.ts` file
-    // if so, then append the event to the file
-    if (fileExists(originalSaveDirectory + "/events.ts")) {
-      // if the original save directory is the `app` directory, then we'll use the alias
-      // otherwise, we'll use the relative path
-      prependFile(
-        originalSaveDirectory + "/events.ts",
-
-        originalSaveDirectory.endsWith("app")
-          ? `import "app/${toKebabCase(options.name)}/events";
-`
-          : `import "./${toKebabCase(options.name)}/events";
-`,
-      );
-    }
   }
 
   // create a utils directory
@@ -145,22 +126,6 @@ export const generate = async (options: WarlockModuleOptions) => {
       path.join(saveTo + "/utils/locales.ts"),
       await getLocalesContent(options),
     );
-
-    // now check if the original save directory has `/localization/index.ts` file
-    // if so, then append the event to the file
-    if (fileExists(originalSaveDirectory + "/localization/index.ts")) {
-      // if the original save directory is the `app` directory, then we'll use the alias
-      // otherwise, we'll use the relative path
-      prependFile(
-        originalSaveDirectory + "/localization/index.ts",
-
-        originalSaveDirectory.endsWith("app")
-          ? `import "app/${toKebabCase(options.name)}/utils/locales";
-`
-          : `import "./${toKebabCase(options.name)}/utils/locales";
-`,
-      );
-    }
   }
 
   // routes file
@@ -168,22 +133,6 @@ export const generate = async (options: WarlockModuleOptions) => {
     path.join(saveTo + "/routes.ts"),
     await generateModuleRoutesContent(options),
   );
-
-  // now check if the original save directory has `/routes.ts` file
-  // if so, then append the event to the file
-  if (fileExists(originalSaveDirectory + "/routes.ts")) {
-    // if the original save directory is the `app` directory, then we'll use the alias
-    // otherwise, we'll use the relative path
-    prependFile(
-      originalSaveDirectory + "/routes.ts",
-
-      originalSaveDirectory.endsWith("app")
-        ? `import "app/${toKebabCase(options.name)}/routes";
-`
-        : `import "./${toKebabCase(options.name)}/routes";
-`,
-    );
-  }
 
   console.log(
     ` ${chalk.green(
