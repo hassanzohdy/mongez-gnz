@@ -1,5 +1,5 @@
 import { ensureDirectory, fileExists, putFile } from "@mongez/fs";
-import { toStudlyCase } from "@mongez/reinforcements";
+import { ltrim, toStudlyCase } from "@mongez/reinforcements";
 import chalk from "chalk";
 import path from "path";
 import { namesFactory } from "src/factories/names-factory";
@@ -13,19 +13,20 @@ export const generate = async (options: QwikPageOptions) => {
   const now = Date.now();
 
   const content = await gnQwikPage(options);
-  const { name, saveTo } = options;
+  const { name: _name, saveTo } = options;
+
+  const name = ltrim(_name, "/");
 
   const componentName = namesFactory.qwikPageComponent(name);
-  const componentPath = namesFactory.qwikPagePath(name);
 
-  ensureDirectory(saveTo);
+  ensureDirectory(saveTo + "/" + name);
 
-  const componentFullPath = path.join(saveTo, `${componentPath}.tsx`);
+  const componentFullPath = path.join(saveTo, name, "index.tsx");
 
   throwIf(
     fileExists(componentFullPath),
-    `Component ${chalk.green(componentName)} already exists in ${chalk.yellow(
-      saveTo,
+    `${chalk.green("index.tsx")} file already exists in ${chalk.yellow(
+      saveTo + "/" + name,
     )}`,
   );
 
@@ -34,9 +35,9 @@ export const generate = async (options: QwikPageOptions) => {
   console.log(
     `Component ${chalk.green(
       componentName,
-    )} has been generated successfully in ${chalk.cyan(
+    )} page has been generated successfully in ${chalk.cyan(
       path
-        .relative(process.cwd(), path.join(path.resolve(saveTo), componentPath))
+        .relative(process.cwd(), path.join(path.resolve(saveTo), name))
         .replaceAll("\\", "/"),
     )} ${chalk.gray(`(${Date.now() - now}ms)`)}`,
   );

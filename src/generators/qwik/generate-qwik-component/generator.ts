@@ -46,6 +46,7 @@ export const generate = async (options: QwikComponentOptions) => {
       componentDirectoryPath,
       `${componentPath}.tsx`,
     );
+
     putFile(componentFullPath, content);
 
     eslint.formatFile(

@@ -7,9 +7,6 @@ export const namesFactory = {
   qwikPath(name: string) {
     return toKebabCase(name);
   },
-  qwikPagePath(name: string) {
-    return name + "/index";
-  },
   qwikPageComponent(name: string) {
     return toStudlyCase(
       name.replaceAll(/\(|\)|\[|\]|\./g, "").replaceAll("/", "_"),

@@ -1,5 +1,5 @@
-import { format as prettierFormat } from "prettier";
 import { ESLint } from "eslint";
+import { format as prettierFormat } from "prettier";
 
 const eslintConfig = {
   env: {
@@ -54,6 +54,7 @@ export async function prettifyTypescript(code: string) {
     trailingComma: "all",
     bracketSameLine: true,
     endOfLine: "auto",
+    plugins: [require("prettier-plugin-organize-imports")],
   });
 
   return format;
