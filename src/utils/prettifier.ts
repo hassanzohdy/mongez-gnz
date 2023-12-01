@@ -54,7 +54,6 @@ export async function prettifyTypescript(code: string) {
     trailingComma: "all",
     bracketSameLine: true,
     endOfLine: "auto",
-    plugins: [require("prettier-plugin-organize-imports")],
   });
 
   return format;
