@@ -54,7 +54,7 @@ export const generate = async (options: QwikComponentOptions) => {
 
     // create the index file
     const indexPath = path.join(componentDirectoryPath, "index.ts");
-    const indexContent = `export { default } from "./${componentPath}";
+    const indexContent = `export * from "./${componentPath}";
 `;
 
     putFile(indexPath, indexContent);
