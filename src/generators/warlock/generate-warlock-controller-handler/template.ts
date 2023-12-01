@@ -4,13 +4,12 @@ import { WarlockHandlerOptions } from "./types";
 
 export async function gnWarlockHandler(options: WarlockHandlerOptions) {
   //
-  const {
-    name,
-    withValidation,
-    rules = {},
-  } = options as Required<WarlockHandlerOptions>;
+  const { name, withValidation, rules } =
+    options as Required<WarlockHandlerOptions>;
 
   let validation = "";
+
+  const warlockImports = ["Request", "Response"];
 
   if (!isEmpty(rules) || withValidation) {
     let content = "";
@@ -24,8 +23,14 @@ export async function gnWarlockHandler(options: WarlockHandlerOptions) {
     }
 
     if (!isEmpty(rules)) {
-      content += `rules: ${toJson(rules)},`;
+      content += `rules: new ValidationSchema(${toJson(rules)}),`;
+    } else {
+      content += `rules: new ValidationSchema({
+        // input: [rules]
+      }),`;
     }
+
+    warlockImports.push("ValidationSchema");
 
     validation = `${name}.validation = {
       ${content}
@@ -33,7 +38,7 @@ export async function gnWarlockHandler(options: WarlockHandlerOptions) {
   }
 
   const imports = [
-    'import { Request, Response } from "@mongez/warlock";',
+    `import { ${warlockImports.join(", ")} } from "@mongez/warlock";`,
     ...(options.imports ?? []),
   ];
 

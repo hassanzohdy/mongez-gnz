@@ -10,6 +10,7 @@ export * from "./generate-react-mongez-module";
 export * from "./generate-react-moonlight-module";
 export * from "./generate-reactive-form-component";
 export * from "./generate-super-table-component";
+export * from "./qwik";
 export * from "./warlock/generate-warlock-controller-handler";
 export * from "./warlock/generate-warlock-module";
 export * from "./warlock/generate-warlock-output";

@@ -72,12 +72,6 @@ export async function generateModelContent(
      * This is useful for better performance when fetching data from database.
      */
     public embedded = ${JSON.stringify(embedded)};
-
-    /**
-     * Define list of columns that are allowed to be only filled.
-     * This is recommended to only add the white-listed columns.
-     */
-    public fillable = ${JSON.stringify(Object.keys(columns))}; 
     }        
     `;
 

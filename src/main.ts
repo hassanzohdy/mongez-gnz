@@ -10,7 +10,6 @@ export type GNZOptions = {
 };
 
 export async function gnz(options: () => GNZOptions) {
-  //
   welcome();
   const { generators = [] } = options();
 
