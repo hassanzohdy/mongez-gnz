@@ -8,25 +8,24 @@ import { gnQwikPage } from "./template";
 import { QwikPageOptions } from "./types";
 
 export const generate = async (options: QwikPageOptions) => {
-  options.name = toStudlyCase(options.name);
+  const name = toStudlyCase(ltrim(options.name, "/"));
 
   const now = Date.now();
 
   const content = await gnQwikPage(options);
-  const { name: _name, saveTo } = options;
-
-  const name = ltrim(_name, "/");
+  const { saveTo } = options;
 
   const componentName = namesFactory.qwikPageComponent(name);
+  const componentPath = namesFactory.qwikPath(name);
 
-  ensureDirectory(saveTo + "/" + name);
+  ensureDirectory(saveTo + "/" + componentPath);
 
-  const componentFullPath = path.join(saveTo, name, "index.tsx");
+  const componentFullPath = path.join(saveTo, componentPath, "index.tsx");
 
   throwIf(
     fileExists(componentFullPath),
     `${chalk.green("index.tsx")} file already exists in ${chalk.yellow(
-      saveTo + "/" + name,
+      saveTo + "/" + componentPath,
     )}`,
   );
 
@@ -37,7 +36,7 @@ export const generate = async (options: QwikPageOptions) => {
       componentName,
     )} page has been generated successfully in ${chalk.cyan(
       path
-        .relative(process.cwd(), path.join(path.resolve(saveTo), name))
+        .relative(process.cwd(), path.join(path.resolve(saveTo), componentPath))
         .replaceAll("\\", "/"),
     )} ${chalk.gray(`(${Date.now() - now}ms)`)}`,
   );
