@@ -1,4 +1,4 @@
-import { toKebabCase, toStudlyCase } from "@mongez/reinforcements";
+import { ltrim, toKebabCase, toStudlyCase } from "@mongez/reinforcements";
 
 export const namesFactory = {
   qwikComponent(name: string) {
@@ -11,5 +11,8 @@ export const namesFactory = {
     return toStudlyCase(
       name.replaceAll(/\(|\)|\[|\]|\./g, "").replaceAll("/", "_"),
     );
+  },
+  qwikPagePath(name: string) {
+    return ltrim(name, "/");
   },
 };

@@ -5,7 +5,7 @@ export async function gnQwikComponent(options: QwikComponentOptions) {
   //
   const {
     name: componentName,
-    withProps = true,
+    withProps = false,
     withSignal = false,
     withTask = false,
     withVisibleTask = false,

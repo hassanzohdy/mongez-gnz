@@ -8,7 +8,7 @@ import {
 import { toStudlyCase } from "@mongez/reinforcements";
 import chalk from "chalk";
 import path from "path";
-import { namesFactory } from "src/factories/names-factory";
+import { namesFactory } from "./../../../factories/names-factory";
 import { eslint, throwIf } from "./../../../utils";
 import { gnQwikComponent } from "./template";
 import { QwikComponentOptions } from "./types";

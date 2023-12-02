@@ -6,11 +6,11 @@ export async function gnQwikPage(options: QwikPageOptions) {
   const {
     name: componentName,
     imports: incomingImports = [],
-    withRouteLoader = true,
-    withHead = true,
+    withRouteLoader = false,
+    withHead = false,
     renderContent = `    
       <>
-        <h1>${componentName}</h1>
+        <h1>Hello, World!</h1>
       </>
     `,
   } = options;
@@ -18,7 +18,6 @@ export async function gnQwikPage(options: QwikPageOptions) {
   const imports: string[] = incomingImports;
 
   imports.unshift("import { component$ } from '@builder.io/qwik';");
-  const importsString = imports.join("\n");
 
   let routeLoaderContent = "";
 
@@ -59,6 +58,8 @@ export async function gnQwikPage(options: QwikPageOptions) {
     };
     `;
   }
+
+  const importsString = imports.join("\n");
 
   const content = `
     ${importsString}

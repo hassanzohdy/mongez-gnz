@@ -22,13 +22,13 @@ export type QwikPageOptions = {
   /**
    * With route loader
    *
-   * @default true
+   * @default false
    */
   withRouteLoader?: boolean;
   /**
    * With head function
    *
-   * @default true
+   * @default false
    */
   withHead?: boolean;
 };

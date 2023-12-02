@@ -1,22 +1,24 @@
 import { ensureDirectory, fileExists, putFile } from "@mongez/fs";
-import { ltrim, toStudlyCase } from "@mongez/reinforcements";
 import chalk from "chalk";
 import path from "path";
-import { namesFactory } from "src/factories/names-factory";
+import { namesFactory } from "../../../factories/names-factory";
 import { throwIf } from "../../../utils";
 import { gnQwikPage } from "./template";
 import { QwikPageOptions } from "./types";
 
 export const generate = async (options: QwikPageOptions) => {
-  const name = toStudlyCase(ltrim(options.name, "/"));
+  const componentName = namesFactory.qwikPageComponent(options.name);
 
   const now = Date.now();
 
-  const content = await gnQwikPage(options);
+  const content = await gnQwikPage({
+    ...options,
+    name: componentName,
+  });
+
   const { saveTo } = options;
 
-  const componentName = namesFactory.qwikPageComponent(name);
-  const componentPath = namesFactory.qwikPath(name);
+  const componentPath = namesFactory.qwikPagePath(options.name);
 
   ensureDirectory(saveTo + "/" + componentPath);
 
