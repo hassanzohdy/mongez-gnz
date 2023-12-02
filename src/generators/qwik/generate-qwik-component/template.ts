@@ -29,6 +29,8 @@ export async function gnQwikComponent(options: QwikComponentOptions) {
 
   const imports: string[] = incomingImports;
 
+  const qwikImports = ["component$"];
+
   let beforeContent = "";
 
   if (options.beforeRenderContent) {
@@ -40,7 +42,7 @@ export async function gnQwikComponent(options: QwikComponentOptions) {
       const ${componentName}Sig = useSignal();
     `;
 
-    imports.push(`import { useSignal } from '@builder.io/qwik';`);
+    qwikImports.push("useSignal");
   }
 
   if (withTask) {
@@ -50,7 +52,7 @@ export async function gnQwikComponent(options: QwikComponentOptions) {
     });
     `;
 
-    imports.push(`import { useTask$ } from '@builder.io/qwik';`);
+    qwikImports.push("useTask$");
   }
 
   if (withVisibleTask) {
@@ -60,10 +62,12 @@ export async function gnQwikComponent(options: QwikComponentOptions) {
     });
     `;
 
-    imports.push(`import { useVisibleTask$ } from '@builder.io/qwik';`);
+    qwikImports.push("useVisibleTask$");
   }
 
-  imports.unshift("import { component$ } from '@builder.io/qwik';");
+  imports.unshift(
+    `import { ${qwikImports.join(", ")} } from '@builder.io/qwik';`,
+  );
 
   const content = `export const ${componentName} = component$${
     withProps ? `<${props}>` : ""

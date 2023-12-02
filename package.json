@@ -2,7 +2,7 @@
     "name": "@mongez/gnz",
     "description": "Generator Z, the next generation of scaffolding tools.",
     "main": "src/index.ts",
-    "version": "5.0.7",
+    "version": "5.0.8",
     "license": "MIT",
     "bin": {
         "gnz": "./bin/gnz"
