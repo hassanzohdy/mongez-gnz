@@ -71,7 +71,7 @@ export async function gnQwikComponent(options: QwikComponentOptions) {
 
   const content = `export const ${componentName} = component$${
     withProps ? `<${props}>` : ""
-  }((props) => {
+  }((${withProps ? "props" : ""}) => {
     ${beforeContent}
     return (
       ${renderContent}
