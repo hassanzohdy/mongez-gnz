@@ -42,7 +42,7 @@ export async function generateSuperTableTemplate(
     "circleImage",
     "idColumn",
     "localizedColumn",
-    "publishedColumn",
+    "activeColumn",
     "textFilter",
     ...getColumnsImports(options.columns),
   ];
