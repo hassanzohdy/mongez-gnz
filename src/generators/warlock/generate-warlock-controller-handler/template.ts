@@ -8,7 +8,8 @@ export async function gnWarlockHandler(options: WarlockHandlerOptions) {
     options as Required<WarlockHandlerOptions>;
 
   const handlerDescription =
-    options?.description ?? capitalize(toKebabCase(name).replaceAll("-", " "));
+    options?.description ??
+    capitalize(toKebabCase(name).replaceAll("-", " ")) + " handler";
 
   let validation = "";
 
