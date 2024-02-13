@@ -1,15 +1,18 @@
+import { capitalize, toKebabCase } from "@mongez/reinforcements";
 import { isEmpty } from "@mongez/supportive-is";
 import { format, toJson } from "../../../utils";
 import { WarlockHandlerOptions } from "./types";
 
 export async function gnWarlockHandler(options: WarlockHandlerOptions) {
-  //
   const { name, withValidation, rules } =
     options as Required<WarlockHandlerOptions>;
 
+  const handlerDescription =
+    options.description ?? capitalize(toKebabCase(name).replaceAll("-", " "));
+
   let validation = "";
 
-  const warlockImports = ["Request", "Response"];
+  const warlockImports = ["RequestHandler", "Request", "Response"];
 
   if (!isEmpty(rules) || withValidation) {
     let content = "";
@@ -38,19 +41,22 @@ export async function gnWarlockHandler(options: WarlockHandlerOptions) {
   }
 
   const imports = [
-    `import { ${warlockImports.join(", ")} } from "@mongez/warlock";`,
+    `import type { ${warlockImports.join(", ")} } from "@mongez/warlock";`,
     ...(options.imports ?? []),
   ];
 
   const content = `
     ${imports.join("\n")}
-    
-    
-export default async function ${name}(request: Request, response: Response) {
+
+// Pass the User Type to RequestHandler to define what the current user type is from accessing request.suer object
+// i.e RequestHandler<User>    
+const ${name}: RequestHandler = async (request: Request, response: Response) {
   ${options.content}
 }
 
 ${validation}
+
+${name}.description = "${handlerDescription}";
   `;
 
   return await format.typescript(content);

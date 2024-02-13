@@ -4,6 +4,10 @@ export type WarlockHandlerOptions = {
    */
   name: string;
   /**
+   * Handler description
+   */
+  description?: string;
+  /**
    * Handler file name
    * Do not add extension file
    *
