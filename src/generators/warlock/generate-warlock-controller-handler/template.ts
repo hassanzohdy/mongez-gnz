@@ -50,7 +50,7 @@ export async function gnWarlockHandler(options: WarlockHandlerOptions) {
 
 // Pass the User Type to RequestHandler to define what the current user type is from accessing request.suer object
 // i.e RequestHandler<User>    
-const ${name}: RequestHandler = async (request: Request, response: Response) {
+const ${name}: RequestHandler = async (request: Request, response: Response) => {
   ${options.content}
 }
 
