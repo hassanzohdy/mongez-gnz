@@ -12,7 +12,11 @@ export async function gnWarlockHandler(options: WarlockHandlerOptions) {
 
   let validation = "";
 
-  const warlockImports = ["RequestHandler", "Request", "Response"];
+  const warlockImports = [
+    "type RequestHandler",
+    "type Request",
+    "type Response",
+  ];
 
   if (!isEmpty(rules) || withValidation) {
     let content = "";
@@ -41,7 +45,7 @@ export async function gnWarlockHandler(options: WarlockHandlerOptions) {
   }
 
   const imports = [
-    `import type { ${warlockImports.join(", ")} } from "@mongez/warlock";`,
+    `import { ${warlockImports.join(", ")} } from "@mongez/warlock";`,
     ...(options.imports ?? []),
   ];
 
