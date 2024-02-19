@@ -62,6 +62,8 @@ const ${name}: RequestHandler = async (request: Request, response: Response) => 
 ${validation}
 
 ${name}.description = "${handlerDescription}";
+
+export default ${name};
   `;
 
   return await format.typescript(content);
