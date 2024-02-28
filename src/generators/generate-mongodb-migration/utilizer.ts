@@ -28,52 +28,52 @@ export function utilizeMigration({
   // we need to generate it for migration and for migration down
   const uniqueIndexes = unique
     .map(column => {
-      return `await ${bluePrintClassName}.unique("${column}");`;
+      return `${bluePrintClassName}.unique("${column}");`;
     })
     .join(newLine);
 
   const uniqueIndexesDown = unique
     .map(column => {
-      return `await ${bluePrintClassName}.dropUniqueIndex("${column}");`;
+      return `${bluePrintClassName}.dropUniqueIndex("${column}");`;
     })
     .join(newLine);
 
   // text indexes
   const textIndexes = text
     .map(column => {
-      return `await ${bluePrintClassName}.textIndex("${column}");`;
+      return `${bluePrintClassName}.textIndex("${column}");`;
     })
     .join(newLine);
 
   const textIndexesDown = text
     .map(column => {
-      return `await ${bluePrintClassName}.dropTextIndex("${column}");`;
+      return `${bluePrintClassName}.dropTextIndex("${column}");`;
     })
     .join(newLine);
 
   // normal indexes
   const normalIndexes = index
     .map(column => {
-      return `await ${bluePrintClassName}.index("${column}");`;
+      return `${bluePrintClassName}.index("${column}");`;
     })
     .join(newLine);
 
   const normalIndexesDown = index
     .map(column => {
-      return `await ${bluePrintClassName}.dropIndex("${column}");`;
+      return `${bluePrintClassName}.dropIndex("${column}");`;
     })
     .join(newLine);
 
   // geo indexes
   const geoIndexes = geo
     .map(column => {
-      return `await ${bluePrintClassName}.geoIndex("${column}");`;
+      return `${bluePrintClassName}.geoIndex("${column}");`;
     })
     .join(newLine);
 
   const geoIndexesDown = geo
     .map(column => {
-      return `await ${bluePrintClassName}.dropGeoIndex("${column}");`;
+      return `${bluePrintClassName}.dropGeoIndex("${column}");`;
     })
     .join(newLine);
 

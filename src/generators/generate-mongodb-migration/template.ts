@@ -14,11 +14,12 @@ export async function generateMigrationTemplate(
     indexesDown,
   } = options;
   const content = `
+  import {type Migration} from "@mongez/monpulse";
   import { ${modelClass} } from "./${modelFileName}";
 
 export const ${bluePrintClassName} = ${modelClass}.blueprint();
 
-export async function ${migrationFunctionName}() {
+export const ${migrationFunctionName}: Migration = async () {
   ${indexes.join(newLine)}
 }
 
