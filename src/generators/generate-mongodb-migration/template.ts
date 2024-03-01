@@ -19,7 +19,7 @@ export async function generateMigrationTemplate(
 
 export const ${bluePrintClassName} = ${modelClass}.blueprint();
 
-export const ${migrationFunctionName}: Migration = async () {
+export const ${migrationFunctionName}: Migration = async () => {
   ${indexes.join(newLine)}
 }
 
