@@ -8,8 +8,7 @@ export async function gnWarlockHandler(options: WarlockHandlerOptions) {
     options as Required<WarlockHandlerOptions>;
 
   const handlerDescription =
-    options?.description ??
-    capitalize(toKebabCase(name).replaceAll("-", " ")) + " handler";
+    options?.description ?? capitalize(toKebabCase(name).replaceAll("-", " "));
 
   let validation = "";
 
@@ -53,8 +52,6 @@ export async function gnWarlockHandler(options: WarlockHandlerOptions) {
   const content = `
     ${imports.join("\n")}
 
-// Pass the User Type to RequestHandler to define what the current user type is from accessing request.suer object
-// i.e RequestHandler<User>    
 const ${name}: RequestHandler = async (request: Request, response: Response) => {
   ${options.content}
 }
