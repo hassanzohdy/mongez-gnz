@@ -30,6 +30,12 @@ export async function gnWarlockRepository(options: WarlockRepositoryOptions) {
       public model = ${modelName};
     
       /**
+       * Simple columns selections
+       * Set the columns that need to be selected when passing 'simple' option with 'true'
+       */
+      public simpleSelectColumns = ["id"];
+
+      /**
        * List default options
        */
       protected defaultOptions: RepositoryOptions = this.withDefaultOptions({});
