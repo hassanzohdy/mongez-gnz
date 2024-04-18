@@ -16,7 +16,7 @@ export async function gnWarlockRepository(options: WarlockRepositoryOptions) {
       FilterByOptions,
       RepositoryManager,
       RepositoryOptions,
-    } from "@mongez/warlock";`,
+    } from "@warlock.js/core";`,
     `import { ${modelName} } from "${modelPath}";`,
   ];
 

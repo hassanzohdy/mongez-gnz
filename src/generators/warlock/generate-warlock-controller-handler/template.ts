@@ -45,7 +45,7 @@ export async function gnWarlockHandler(options: WarlockHandlerOptions) {
   }
 
   const imports = [
-    `import { ${warlockImports.join(", ")} } from "@mongez/warlock";`,
+    `import { ${warlockImports.join(", ")} } from "@warlock.js/core";`,
     ...(options.imports ?? []),
   ];
 

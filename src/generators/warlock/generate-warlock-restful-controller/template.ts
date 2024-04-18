@@ -14,7 +14,7 @@ export async function gnWarlockRestful(options: WarlockRestfulOptions) {
   } = options as Required<WarlockRestfulOptions>;
 
   const imports = [
-    'import { Restful, RouteResource } from "@mongez/warlock";',
+    'import { Restful, RouteResource } from "@warlock.js/core";',
     `import { ${modelName} } from "${modelPath}";`,
     `import ${repositoryName} from "${repositoryPath}";`,
   ];
