@@ -37,13 +37,12 @@ export const generate = async (options: MongoDBModelGeneratorOptions) => {
     await generateMongoDBMigration.generate({
       modelClass: options.className,
       modelPath: rtrim(options.fileName, ".ts"),
-      saveTo: savePath,
+      saveTo: savePath + "/migrations",
       name: `${options.className}Migration`,
       geo: options.geo,
       index: options.index,
       text: options.text,
       unique: options.unique,
-      fileName: "migration.ts",
     });
   }
 

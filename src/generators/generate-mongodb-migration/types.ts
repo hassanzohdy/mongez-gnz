@@ -6,7 +6,7 @@ export type MongoDBMigrationOptions = {
   /**
    * Migration file name
    *
-   * @default name.ts
+   * @default {DD-MM-YYYY_HH-MM-SS}-{name}-migration.ts
    */
   fileName?: string;
   /**
@@ -82,5 +82,6 @@ export type UtilizeMigrationOptions = Required<
     | "text"
     | "unique"
     | "uniqueId"
+    | "name"
   >
 >;

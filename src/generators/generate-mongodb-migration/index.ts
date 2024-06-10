@@ -7,7 +7,7 @@ export * from "./types";
 export const generateMongoDBMigration =
   createGenerator<MongoDBMigrationOptions>({
     name: "generate-mongodb-migration",
-    label: "Generate MongoDB Migration File",
+    label: "Generate Cascade MongoDB Migration File",
     cliOptions: {
       commands: [mongodbMigrationCommand],
     },

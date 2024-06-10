@@ -1,33 +1,36 @@
+import { toCamelCase, toStudlyCase } from "@mongez/reinforcements";
+import { formatDate } from "../../utils/format-date";
 import { format, newLine } from "./../../utils";
 import { MigrationTemplateOptions } from "./types";
 
 export async function generateMigrationTemplate(
   options: MigrationTemplateOptions,
 ) {
-  //
   const {
     modelClass,
     modelFileName,
-    bluePrintClassName,
     migrationFunctionName,
     indexes,
     indexesDown,
   } = options;
+
+  const importPath = `../${modelFileName.replace(/^\.\//, "")}`;
+
   const content = `
-  import {type Migration} from "@mongez/monpulse";
-  import { ${modelClass} } from "./${modelFileName}";
+import { migrationOffice, type ModelBlueprint } from "@warlock.js/cascade";
+import { ${modelClass} } from "${importPath}";
 
-export const ${bluePrintClassName} = ${modelClass}.blueprint();
-
-export const ${migrationFunctionName}: Migration = async () => {
-  ${indexes.join(newLine)}
-}
-
-${migrationFunctionName}.blueprint = ${bluePrintClassName};
-
-${migrationFunctionName}.down = async () => {
-  ${indexesDown.join(newLine)}
-};
+export default migrationOffice.register({
+  name: "${migrationFunctionName}",
+  blueprint: ${toStudlyCase(modelClass)}.blueprint(),
+  createdAt: "${formatDate()}",
+  up: (blueprint: ModelBlueprint) => {
+    ${indexes.join(newLine)}
+  },
+  down: (blueprint: ModelBlueprint) => {
+    ${indexesDown.join(newLine)}
+  },
+});
 `;
 
   return await format.typescript(content);

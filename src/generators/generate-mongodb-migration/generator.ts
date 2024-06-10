@@ -1,10 +1,15 @@
 import { ensureDirectory, fileExists, putFile } from "@mongez/fs";
 import { toKebabCase } from "@mongez/reinforcements";
 import path from "path";
+import { formatDate } from "../../utils/format-date";
 import { throwIf } from "./../../utils";
 import { generateMigrationTemplate } from "./template";
 import { MongoDBMigrationOptions } from "./types";
 import { utilizeMigration } from "./utilizer";
+
+const defaultMigrationFileName = (name: string) => {
+  return `${formatDate()}-${toKebabCase(name)}-migration`;
+};
 
 export const generate = async ({
   name,
@@ -14,7 +19,7 @@ export const generate = async ({
   index = [],
   text = [],
   geo = [],
-  fileName = name + ".ts",
+  fileName = defaultMigrationFileName(name) + ".ts",
   uniqueId = true,
   saveTo,
 }: MongoDBMigrationOptions) => {
@@ -34,6 +39,7 @@ export const generate = async ({
     bluePrintClassName,
     migrationFunctionName,
   } = utilizeMigration({
+    name,
     geo,
     index,
     modelClass,

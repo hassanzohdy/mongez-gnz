@@ -10,6 +10,7 @@ export function utilizeMigration({
   geo,
   modelPath,
   uniqueId,
+  name,
 }: UtilizeMigrationOptions) {
   if (uniqueId) {
     if (!unique) {
@@ -19,9 +20,9 @@ export function utilizeMigration({
     }
   }
 
-  const bluePrintClassName = `${modelClass}BluePrint`;
+  const bluePrintClassName = `blueprint`;
 
-  const migrationFunctionName = `${toCamelCase(modelClass)}Migration`;
+  const migrationFunctionName = `${toCamelCase(name)}Migration`;
 
   // now generate the text for indexes
   // unique indexes first

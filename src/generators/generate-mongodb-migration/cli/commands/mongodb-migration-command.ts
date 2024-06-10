@@ -6,7 +6,7 @@ import { gnz } from "./../../../../main";
 export const mongodbMigrationCommand = new Command("gn:migration")
   .arguments("<name>")
   .option("-p, --path <path>", "Save to path, relative to root directory")
-  .option("-m, --model <name>", "Model class name")
+  .requiredOption("-m, --model <name>", "Model class name")
   .option(
     "-i, --indexes <indexes>",
     "Column that will be indexed, separate with comma",

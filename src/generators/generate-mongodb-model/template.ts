@@ -16,16 +16,12 @@ export async function generateModelContent(
     embedded = ["id"],
   } = options;
 
-  if (!columns.isActive) {
-    columns.isActive = "boolean";
-  }
-
   const outputImport = outputClass
     ? `import {${outputClass}} from "${outputClassPath}";`
     : "";
 
   const content = `
-    import { Casts, Document, Model, ModelSync } from "@mongez/monpulse";
+    import { Model, type Casts, type Document, type ModelSync } from "@warlock.js/cascade";
     ${outputImport}
   
     export class ${className} extends Model {
@@ -81,16 +77,9 @@ export async function generateModelContent(
 export async function generateModelIndexContent(
   options: MongoDBModelGeneratorOptions,
 ) {
-  const { withMigration } = options;
-
-  let content = `
+  const content = `
   export * from "./${rtrim(options.fileName as string, ".ts")}";
   `;
-
-  if (withMigration) {
-    content += `export * from './migration';
-    `;
-  }
 
   return await format.typescript(content);
 }
