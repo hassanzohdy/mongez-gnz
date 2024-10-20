@@ -14,7 +14,7 @@ export const generate = async (options: WarlockOutputOptions) => {
 
   ensureDirectory(saveTo);
 
-  options.fileName ||= `${toKebabCase(options.name)}-output`;
+  options.fileName ||= `${toKebabCase(options.name)}.output`;
 
   options.fileName = toKebabCase(options.fileName);
 
@@ -38,9 +38,7 @@ export const generate = async (options: WarlockOutputOptions) => {
     ` ${chalk.green(
       options.name,
     )} has been generated successfully in ${chalk.cyan(
-      path
-        .relative(process.cwd(), path.join(path.resolve(saveTo), options.name))
-        .replaceAll("\\", "/"),
+      saveTo + "/" + options.fileName,
     )} ${chalk.gray(`(${Date.now() - now}ms)`)}`,
   );
 

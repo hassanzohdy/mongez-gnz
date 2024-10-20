@@ -12,7 +12,9 @@ export async function gnWarlockOutput(options: WarlockOutputOptions) {
     withBaseOutputDetailsFunctionName,
   } = options as Required<WarlockOutputOptions>;
 
-  const imports = ['import { FinalOutput, Output } from "@warlock.js/core"'];
+  const imports = [
+    'import { type FinalOutput, Output } from "@warlock.js/core"',
+  ];
 
   if (withBaseOutputDetails) {
     imports.push(

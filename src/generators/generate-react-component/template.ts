@@ -2,13 +2,13 @@ import { format } from "./../../utils";
 import { ReactComponentOptions } from "./types";
 
 export async function gnReactComponent(options: ReactComponentOptions) {
-  //
   const {
     memo,
     name: componentName,
     forwardRef,
     withProps = true,
     args = [],
+    exportAsDefault = false,
     imports: incomingImports = [],
     renderContent = `    
       <>
@@ -17,13 +17,16 @@ export async function gnReactComponent(options: ReactComponentOptions) {
     `,
   } = options;
 
+  const exportAsDefaultText = exportAsDefault ? "default" : "";
+
   const props = `${componentName}Props`;
 
   const propsDefinition = withProps
     ? `
-    export type ${props} = {
+    type ${props} = {
       // props go here
-    };    
+    };
+
   `
     : "";
 
@@ -35,7 +38,7 @@ export async function gnReactComponent(options: ReactComponentOptions) {
 
   let content = "";
 
-  if (memo || forwardRef) {
+  if (forwardRef) {
     if (forwardRef && args.length === 0) {
       args.push(`props: ${props}`, "ref: any");
     } else {
@@ -50,16 +53,16 @@ export async function gnReactComponent(options: ReactComponentOptions) {
     if (memo && forwardRef) {
       exportStatement = `
         const ${componentName} = React.memo(React.forwardRef(_${componentName}));
-      export default ${componentName};`;
+      export ${exportAsDefaultText} ${componentName};`;
     } else if (memo) {
       exportStatement = `
         const ${componentName} = React.memo(_${componentName});
-      export default ${componentName};`;
+      export ${exportAsDefaultText} ${componentName};`;
     } else if (forwardRef) {
       exportStatement = `
         const ${componentName} = React.forwardRef(_${componentName});
 
-      export default ${componentName};`;
+      export ${exportAsDefaultText} ${componentName};`;
     }
 
     content = `function _${componentName}(${args.join(", ")}) {
@@ -72,7 +75,9 @@ export async function gnReactComponent(options: ReactComponentOptions) {
       `;
   } else {
     args.push(withProps ? `props: ${props}` : "");
-    content = `export default function ${componentName}(${args.join(", ")}) {
+    content = `export ${exportAsDefaultText} function ${componentName}(${args.join(
+      ", ",
+    )}) {
       ${options.beforeRenderContent || ""}
       return (
         <>

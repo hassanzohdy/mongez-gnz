@@ -12,6 +12,12 @@ export type ReactComponentOptions = {
    */
   imports?: string[];
   /**
+   * Export component as default
+   *
+   * @default false
+   */
+  exportAsDefault?: boolean;
+  /**
    * Create component with props and props type
    *
    * @default true

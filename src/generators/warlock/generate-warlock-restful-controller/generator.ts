@@ -15,7 +15,7 @@ export const generate = async (options: WarlockRestfulOptions) => {
   options.className ||= `Restful${pluralize(toStudlyCase(name))}`;
   options.exportName ||= `restful${pluralize(toStudlyCase(name))}`;
   options.repository ||= `${toCamelCase(name)}Repository`;
-  options.repositoryPath ||= `./repositories/${toKebabCase(name)}-repository`;
+  options.repositoryPath ||= `./repositories/${toKebabCase(name)}.repository`;
   options.model ||= `${toStudlyCase(pluralize(name, 1))}`;
   options.modelPath ||= `./../models/${toKebabCase(pluralize(name, 1))}`;
 
@@ -39,9 +39,7 @@ export const generate = async (options: WarlockRestfulOptions) => {
 
   console.log(
     ` ${chalk.green(name)} has been generated successfully in ${chalk.cyan(
-      path
-        .relative(process.cwd(), path.join(path.resolve(saveTo), name))
-        .replaceAll("\\", "/"),
+      saveTo + "/" + options.fileName,
     )} ${chalk.gray(`(${Date.now() - now}ms)`)}`,
   );
 };

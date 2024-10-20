@@ -9,11 +9,11 @@ import { WarlockHandlerOptions } from "./types";
 export const generate = async (options: WarlockHandlerOptions) => {
   const now = Date.now();
 
-  options.fileName ||= `${toKebabCase(options.name)}`;
+  options.fileName ||= `${toKebabCase(options.name)}.request`;
 
   options.fileName = toKebabCase(options.fileName);
 
-  options.name = toCamelCase(options.name);
+  options.name = toCamelCase(options.name) + "Request";
 
   const { name, saveTo } = options;
 
@@ -35,9 +35,7 @@ export const generate = async (options: WarlockHandlerOptions) => {
     ` ${chalk.green(
       name,
     )} handler has been generated successfully in ${chalk.cyan(
-      path
-        .relative(process.cwd(), path.join(path.resolve(saveTo), name))
-        .replaceAll("\\", "/"),
+      saveTo + "/" + options.fileName,
     )} ${chalk.gray(`(${Date.now() - now}ms)`)}`,
   );
 };

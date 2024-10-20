@@ -50,7 +50,7 @@ export const generate = async (options: ReactComponentOptions) => {
 
     // create the index file
     const indexPath = path.join(componentDirectoryPath, "index.ts");
-    const indexContent = `export { default } from "./${componentName}";
+    const indexContent = `export * from "./${componentName}";
 `;
 
     putFile(indexPath, indexContent);

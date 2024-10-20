@@ -38,7 +38,7 @@ export const generate = async (options: MongoDBModelGeneratorOptions) => {
       modelClass: options.className,
       modelPath: rtrim(options.fileName, ".ts"),
       saveTo: savePath + "/migrations",
-      name: `${options.className}Migration`,
+      name: options.className,
       geo: options.geo,
       index: options.index,
       text: options.text,
@@ -65,7 +65,10 @@ export const generate = async (options: MongoDBModelGeneratorOptions) => {
     options.fileName = directoryName + "/" + options.fileName;
   }
 
-  putFile(path.join(options.saveTo, options.fileName), modelContent);
+  putFile(
+    path.join(options.saveTo, rtrim(options.fileName, ".ts") + ".model.ts"),
+    modelContent,
+  );
 
   console.log(
     `${chalk.green(options.className)} model has been generated successfully`,

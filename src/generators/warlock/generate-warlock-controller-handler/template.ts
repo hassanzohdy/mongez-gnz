@@ -1,11 +1,9 @@
 import { capitalize, toKebabCase } from "@mongez/reinforcements";
-import { isEmpty } from "@mongez/supportive-is";
-import { format, toJson } from "../../../utils";
+import { format } from "../../../utils";
 import { WarlockHandlerOptions } from "./types";
 
 export async function gnWarlockHandler(options: WarlockHandlerOptions) {
-  const { name, withValidation, rules } =
-    options as Required<WarlockHandlerOptions>;
+  const { name, withValidation } = options as Required<WarlockHandlerOptions>;
 
   const handlerDescription =
     options?.description ?? capitalize(toKebabCase(name).replaceAll("-", " "));
@@ -16,9 +14,10 @@ export async function gnWarlockHandler(options: WarlockHandlerOptions) {
     "type RequestHandler",
     "type Request",
     "type Response",
+    "v",
   ];
 
-  if (!isEmpty(rules) || withValidation) {
+  if (withValidation) {
     let content = "";
 
     if (withValidation) {
@@ -26,18 +25,12 @@ export async function gnWarlockHandler(options: WarlockHandlerOptions) {
         // your code here
         // if any value is returned from this function, the handler won't be executed.
         // as it will interrupt the request and return the value as a response.
-      },`;
+      },
+      schema: v.object({
+        // your schema here
+      }), 
+      `;
     }
-
-    if (!isEmpty(rules)) {
-      content += `rules: new ValidationSchema(${toJson(rules)}),`;
-    } else {
-      content += `rules: new ValidationSchema({
-        // input: [rules]
-      }),`;
-    }
-
-    warlockImports.push("ValidationSchema");
 
     validation = `${name}.validation = {
       ${content}
@@ -52,15 +45,13 @@ export async function gnWarlockHandler(options: WarlockHandlerOptions) {
   const content = `
     ${imports.join("\n")}
 
-const ${name}: RequestHandler = async (request: Request, response: Response) => {
+export const ${name}: RequestHandler = async (request: Request, response: Response) => {
   ${options.content}
 }
 
 ${validation}
 
 ${name}.description = "${handlerDescription}";
-
-export default ${name};
   `;
 
   return await format.typescript(content);

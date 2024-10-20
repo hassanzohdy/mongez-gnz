@@ -93,7 +93,7 @@ export function utilizeMigration({
     geoIndexesDown,
   ].filter(indexes => indexes.length > 0);
 
-  const modelFileName = modelPath || toKebabCase(modelClass);
+  const modelFileName = (modelPath || toKebabCase(modelClass)) + ".model";
 
   return {
     modelFileName,

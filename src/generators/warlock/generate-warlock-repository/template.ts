@@ -13,9 +13,9 @@ export async function gnWarlockRepository(options: WarlockRepositoryOptions) {
 
   const imports = [
     `import {
-      FilterByOptions,
+      type FilterByOptions,
       RepositoryManager,
-      RepositoryOptions,
+      type RepositoryOptions,
     } from "@warlock.js/core";`,
     `import { ${modelName} } from "${modelPath}";`,
   ];
@@ -47,10 +47,8 @@ export async function gnWarlockRepository(options: WarlockRepositoryOptions) {
         filters,
       )});
     }
-    
-    const ${objectName} = new ${className}();
-    
-    export default ${objectName};        
+
+    export const ${objectName} = new ${className}();
   `;
 
   return await format.typescript(content);

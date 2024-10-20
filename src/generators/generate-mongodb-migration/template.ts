@@ -22,8 +22,8 @@ import { ${modelClass} } from "${importPath}";
 
 export default migrationOffice.register({
   name: "${migrationFunctionName}",
-  blueprint: ${toStudlyCase(modelClass)}.blueprint(),
   createdAt: "${formatDate()}",
+  blueprint: ${toStudlyCase(modelClass)}.blueprint(),
   up: (blueprint: Blueprint) => {
     ${indexes.join(newLine)}
   },

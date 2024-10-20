@@ -21,14 +21,18 @@ export async function getLocalesContent(options: WarlockModuleOptions) {
 export async function generateModuleRoutesContent(
   options: WarlockModuleOptions,
 ) {
-  const moduleListHandler = `get${toStudlyCase(pluralize(options.name))}`;
-  const moduleListHandlerPath = `./controllers/get-${toKebabCase(
+  const moduleListHandler = `get${toStudlyCase(
     pluralize(options.name),
+  )}ListRequest`;
+  const moduleListHandlerPath = `./controllers/get-${toKebabCase(
+    pluralize(options.name) + "-list.request",
   )}`;
 
-  const singleHandlerName = `get${toStudlyCase(pluralize(options.name, 1))}`;
-  const singleHandlerPath = `./controllers/get-${toKebabCase(
+  const singleHandlerName = `get${toStudlyCase(
     pluralize(options.name, 1),
+  )}Request`;
+  const singleHandlerPath = `./controllers/get-${toKebabCase(
+    pluralize(options.name, 1) + ".request",
   )}`;
 
   const route = `/${toKebabCase(pluralize(options.name))}`;
@@ -38,9 +42,9 @@ export async function generateModuleRoutesContent(
   const content = `
   import { router } from "@warlock.js/core";
   import { guardedAdmin, publicRoutes } from "app/utils/router";
-  import ${moduleListHandler} from "${moduleListHandlerPath}";
-  import ${singleHandlerName} from "${singleHandlerPath}";
-  import ${restful} from "./controllers/restful-${toKebabCase(
+  import { ${moduleListHandler} } from "${moduleListHandlerPath}";
+  import { ${singleHandlerName} } from "${singleHandlerPath}";
+  import { ${restful} } from "./controllers/restful-${toKebabCase(
     pluralize(options.name),
   )}";
 

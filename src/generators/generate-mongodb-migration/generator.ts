@@ -8,7 +8,7 @@ import { MongoDBMigrationOptions } from "./types";
 import { utilizeMigration } from "./utilizer";
 
 const defaultMigrationFileName = (name: string) => {
-  return `${formatDate()}-${toKebabCase(name)}-migration`;
+  return `${formatDate()}-${toKebabCase(name)}.migration`;
 };
 
 export const generate = async ({

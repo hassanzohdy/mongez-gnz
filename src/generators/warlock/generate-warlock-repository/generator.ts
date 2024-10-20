@@ -19,9 +19,9 @@ export const generate = async (options: WarlockRepositoryOptions) => {
 
   ensureDirectory(saveTo);
 
-  options.fileName ||= `${toKebabCase(name)}-repository`;
+  options.fileName ||= `${toKebabCase(name)}`;
 
-  options.fileName = toKebabCase(options.fileName);
+  options.fileName = toKebabCase(options.fileName) + ".repository";
 
   const Path = path.join(saveTo, `${options.fileName}.ts`);
 
@@ -39,9 +39,7 @@ export const generate = async (options: WarlockRepositoryOptions) => {
     ` ${chalk.green(
       name,
     )} repository has been generated successfully in ${chalk.cyan(
-      path
-        .relative(process.cwd(), path.join(path.resolve(saveTo), name))
-        .replaceAll("\\", "/"),
+      saveTo + "/" + options.fileName,
     )} ${chalk.gray(`(${Date.now() - now}ms)`)}`,
   );
 

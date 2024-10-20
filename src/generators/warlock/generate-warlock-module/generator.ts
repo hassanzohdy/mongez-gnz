@@ -64,10 +64,10 @@ export const generate = async (options: WarlockModuleOptions) => {
   // generate the list controller
   await gnz.execute(
     generateWarlockHandler.execute({
-      name: `get${toStudlyCase(pluralize(options.name))}`,
+      name: `get${toStudlyCase(pluralize(options.name))}-list`,
       saveTo: saveTo + "/controllers",
       imports: [
-        `import ${repositoryOptions.exportName} from "../repositories/${repositoryOptions.fileName}";`,
+        `import { ${repositoryOptions.exportName} } from "../repositories/${repositoryOptions.fileName}";`,
       ],
       content: `
         const {documents: ${toCamelCase(
@@ -90,12 +90,12 @@ export const generate = async (options: WarlockModuleOptions) => {
       name: `get${toStudlyCase(pluralize(options.name, 1))}`,
       saveTo: saveTo + "/controllers",
       imports: [
-        `import ${repositoryOptions.exportName} from "../repositories/${repositoryOptions.fileName}";`,
+        `import { ${repositoryOptions.exportName} } from "../repositories/${repositoryOptions.fileName}";`,
       ],
       content: `
         const ${toCamelCase(pluralize(options.name, 1))} = await ${
         repositoryOptions.exportName
-      }.get(request.int("id"));
+      }.getActive(request.int("id"));
 
       if (!${toCamelCase(pluralize(options.name, 1))}) {
         return response.notFound();

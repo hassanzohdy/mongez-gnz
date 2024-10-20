@@ -9,7 +9,7 @@ import { toStudlyCase } from "@mongez/reinforcements";
 import chalk from "chalk";
 import path from "path";
 import { eslint, throwIf } from "../../utils";
-import { gnReactComponent } from "./template";
+import { gnNextServerComponent } from "./template";
 import { NextServerComponentOptions } from "./types";
 
 export const generate = async (options: NextServerComponentOptions) => {
@@ -17,7 +17,7 @@ export const generate = async (options: NextServerComponentOptions) => {
 
   const now = Date.now();
 
-  const content = await gnReactComponent(options);
+  const content = await gnNextServerComponent(options);
   const { name: componentName, saveTo } = options;
 
   ensureDirectory(saveTo);

@@ -78,7 +78,7 @@ export async function generateModelIndexContent(
   options: MongoDBModelGeneratorOptions,
 ) {
   const content = `
-  export * from "./${rtrim(options.fileName as string, ".ts")}";
+  export * from "./${rtrim(options.fileName as string, ".ts")}.model";
   `;
 
   return await format.typescript(content);
