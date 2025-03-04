@@ -1,4 +1,3 @@
-import { rtrim } from "@mongez/reinforcements";
 import { format, toJson } from "./../../utils";
 import { MongoDBModelGeneratorOptions } from "./types";
 
@@ -78,7 +77,7 @@ export async function generateModelIndexContent(
   options: MongoDBModelGeneratorOptions,
 ) {
   const content = `
-  export * from "./${rtrim(options.fileName as string, ".ts")}.model";
+  export * from "./${options.fileName}";
   `;
 
   return await format.typescript(content);

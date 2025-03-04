@@ -1,28 +1,23 @@
 import { ensureDirectory, fileExists, putFile } from "@mongez/fs";
-import {
-  rtrim,
-  toCamelCase,
-  toKebabCase,
-  toStudlyCase,
-} from "@mongez/reinforcements";
 import chalk from "chalk";
 import path from "path";
-import pluralize from "pluralize";
+import { namesFactory } from "../../factories/names-factory";
 import { generateMongoDBMigration } from "../generate-mongodb-migration";
 import { throwIf } from "./../../utils";
 import { generateModelContent, generateModelIndexContent } from "./template";
 import { MongoDBModelGeneratorOptions } from "./types";
 
 export const generate = async (options: MongoDBModelGeneratorOptions) => {
-  options.collection = pluralize(toCamelCase(options.collection));
-  options.className ||= toStudlyCase(pluralize(options.collection, 1));
-  options.fileName ||= toKebabCase(pluralize(options.collection, 1)) + ".ts";
+  options.collection = namesFactory.modelTableName(options.collection);
+  options.className ||= namesFactory.modelClassName(options.collection);
+  options.fileName ||= namesFactory.modelFilePath(options.collection);
+  const modelFilePath = options.fileName + ".ts";
 
   ensureDirectory(options.saveTo);
 
   throwIf(
-    fileExists(path.join(options.saveTo, options.fileName)),
-    `Model file ${options.fileName} already exists`,
+    fileExists(path.join(options.saveTo, modelFilePath)),
+    `Model file ${modelFilePath} already exists`,
   );
 
   console.log(`Generating ${chalk.cyan(options.className)} model...`);
@@ -31,12 +26,12 @@ export const generate = async (options: MongoDBModelGeneratorOptions) => {
 
   if (options.withMigration) {
     const savePath = options.withIndex
-      ? options.saveTo + "/" + rtrim(options.fileName, ".ts")
+      ? options.saveTo + "/" + namesFactory.modelFolderPath(options.collection)
       : options.saveTo;
 
     await generateMongoDBMigration.generate({
       modelClass: options.className,
-      modelPath: rtrim(options.fileName, ".ts"),
+      modelPath: options.fileName,
       saveTo: savePath + "/migrations",
       name: options.className,
       geo: options.geo,
@@ -49,13 +44,13 @@ export const generate = async (options: MongoDBModelGeneratorOptions) => {
   // first we need to check if model will be in a directory
   // then we need to check if the directory exists
   if (options.withIndex) {
-    const directoryName = rtrim(options.fileName, ".ts");
+    const directoryName = namesFactory.modelFolderPath(options.collection);
 
     ensureDirectory(path.join(options.saveTo, directoryName));
 
     throwIf(
-      fileExists(path.join(options.saveTo, directoryName, options.fileName)),
-      `Model file ${options.fileName} already exists in ${directoryName} directory`,
+      fileExists(path.join(options.saveTo, directoryName, modelFilePath)),
+      `Model file ${modelFilePath} already exists in ${directoryName} directory`,
     );
 
     const indexContent = await generateModelIndexContent(options);
@@ -65,10 +60,7 @@ export const generate = async (options: MongoDBModelGeneratorOptions) => {
     options.fileName = directoryName + "/" + options.fileName;
   }
 
-  putFile(
-    path.join(options.saveTo, rtrim(options.fileName, ".ts") + ".model.ts"),
-    modelContent,
-  );
+  putFile(path.join(options.saveTo, options.fileName + ".ts"), modelContent);
 
   console.log(
     `${chalk.green(options.className)} model has been generated successfully`,

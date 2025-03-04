@@ -8,6 +8,12 @@ export type WarlockModuleOptions = {
    */
   saveTo: string;
   /**
+   * Generate as a sub module
+   *
+   * @default false
+   */
+  subModule?: boolean;
+  /**
    * If set to true, will create a new folder `events` with `index.ts` file
    *
    * @default true

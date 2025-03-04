@@ -11,13 +11,14 @@ export const newWarlockModuleCommand = new Command("warlock:module")
     "Path to save the file to, relative to the project root",
   )
   .option(".e, --withEvents <withEvents>", "Generate events file")
+  .option("-sb, --subModule", "Generate sub module")
   .option("-l, --withLocales <withLocales>", "Generate locales file")
   .option(
     "-c, --columns <columns>",
     "Columns types: column=type,column2=type2...",
   )
   .action(async (name, options) => {
-    const { path, columns, withLocales, withEvents } = options;
+    const { path, columns, withLocales, withEvents, subModule } = options;
     const columnList = columns
       ? columns.split(",").reduce((prev, current) => {
           const [key, value] = current.split(":");
@@ -33,6 +34,7 @@ export const newWarlockModuleCommand = new Command("warlock:module")
         columns: columnList,
         withEvents: withEvents !== "false",
         withLocales: withLocales !== "false",
+        subModule,
       }),
     );
   });

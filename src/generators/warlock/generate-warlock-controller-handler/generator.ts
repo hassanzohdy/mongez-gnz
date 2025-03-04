@@ -1,7 +1,7 @@
 import { ensureDirectory, fileExists, putFile } from "@mongez/fs";
-import { toCamelCase, toKebabCase } from "@mongez/reinforcements";
 import chalk from "chalk";
 import path from "path";
+import { namesFactory } from "../../../factories/names-factory";
 import { throwIf } from "../../../utils";
 import { gnWarlockHandler } from "./template";
 import { WarlockHandlerOptions } from "./types";
@@ -9,11 +9,9 @@ import { WarlockHandlerOptions } from "./types";
 export const generate = async (options: WarlockHandlerOptions) => {
   const now = Date.now();
 
-  options.fileName ||= `${toKebabCase(options.name)}.request`;
+  options.fileName ||= namesFactory.controllerFilePath(options.name);
 
-  options.fileName = toKebabCase(options.fileName);
-
-  options.name = toCamelCase(options.name) + "Request";
+  options.name = namesFactory.controllerName(options.name);
 
   const { name, saveTo } = options;
 

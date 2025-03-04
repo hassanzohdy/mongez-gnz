@@ -10,7 +10,7 @@ export async function gnReactComponent(options: ReactComponentOptions) {
     args = [],
     exportAsDefault = false,
     imports: incomingImports = [],
-    renderContent = `    
+    renderContent = `
       <>
         <h1>${componentName}</h1>
       </>

@@ -1,8 +1,7 @@
 import { ensureDirectory, fileExists, putFile } from "@mongez/fs";
-import { toCamelCase, toKebabCase, toStudlyCase } from "@mongez/reinforcements";
 import chalk from "chalk";
 import path from "path";
-import pluralize from "pluralize";
+import { namesFactory } from "../../../factories/names-factory";
 import { throwIf } from "../../../utils";
 import { gnWarlockRepository } from "./template";
 import { WarlockRepositoryOptions } from "./types";
@@ -12,18 +11,18 @@ export const generate = async (options: WarlockRepositoryOptions) => {
 
   const { name, saveTo } = options;
 
-  options.className ||= `${pluralize(toStudlyCase(name))}Repository`;
-  options.exportName ||= `${pluralize(toCamelCase(name))}Repository`;
-  options.model ||= `${toStudlyCase(pluralize(name, 1))}`;
-  options.modelPath ||= `./../models/${toKebabCase(pluralize(name, 1))}`;
+  options.className ||= namesFactory.repositoryClassName(name);
+  options.exportName ||= namesFactory.repositoryExportName(name);
+  options.model ||= namesFactory.modelClassName(name);
+  options.modelPath ||= `./../models/${namesFactory.modelFolderPath(name)}`;
 
   ensureDirectory(saveTo);
 
-  options.fileName ||= `${toKebabCase(name)}`;
+  options.fileName ||= namesFactory.repositoryFilePath(name);
 
-  options.fileName = toKebabCase(options.fileName) + ".repository";
+  const repositoryFilePath = options.fileName + ".ts";
 
-  const Path = path.join(saveTo, `${options.fileName}.ts`);
+  const Path = path.join(saveTo, repositoryFilePath);
 
   throwIf(
     fileExists(Path),

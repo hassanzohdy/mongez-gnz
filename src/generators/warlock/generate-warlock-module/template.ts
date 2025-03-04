@@ -1,5 +1,6 @@
-import { toCamelCase, toKebabCase, toStudlyCase } from "@mongez/reinforcements";
+import { toCamelCase } from "@mongez/reinforcements";
 import pluralize from "pluralize";
+import { namesFactory } from "../../../factories/names-factory";
 import { format } from "../../../utils";
 import { WarlockModuleOptions } from "./types";
 
@@ -21,31 +22,27 @@ export async function getLocalesContent(options: WarlockModuleOptions) {
 export async function generateModuleRoutesContent(
   options: WarlockModuleOptions,
 ) {
-  const moduleListHandler = `get${toStudlyCase(
-    pluralize(options.name),
-  )}ListRequest`;
-  const moduleListHandlerPath = `./controllers/get-${toKebabCase(
-    pluralize(options.name) + "-list.request",
+  const moduleListHandler = namesFactory.controllerName("list-" + options.name);
+  const moduleListHandlerPath = `./controllers/list-${namesFactory.controllerFilePath(
+    options.name,
   )}`;
 
-  const singleHandlerName = `get${toStudlyCase(
-    pluralize(options.name, 1),
-  )}Request`;
-  const singleHandlerPath = `./controllers/get-${toKebabCase(
-    pluralize(options.name, 1) + ".request",
+  const singleHandlerName = namesFactory.controllerName("get-" + options.name);
+  const singleHandlerPath = `./controllers/get-${namesFactory.controllerFilePath(
+    options.name,
   )}`;
 
-  const route = `/${toKebabCase(pluralize(options.name))}`;
+  const route = namesFactory.routePath(options.name);
 
-  const restful = `restful${toStudlyCase(pluralize(options.name))}`;
+  const restful = namesFactory.restfulExportName(options.name);
 
   const content = `
   import { router } from "@warlock.js/core";
   import { guardedAdmin, publicRoutes } from "app/utils/router";
   import { ${moduleListHandler} } from "${moduleListHandlerPath}";
   import { ${singleHandlerName} } from "${singleHandlerPath}";
-  import { ${restful} } from "./controllers/restful-${toKebabCase(
-    pluralize(options.name),
+  import { ${restful} } from "./controllers/${namesFactory.restfulFilePath(
+    options.name,
   )}";
 
   guardedAdmin(() => {

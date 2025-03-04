@@ -1,8 +1,7 @@
 import { ensureDirectory, fileExists, putFile } from "@mongez/fs";
-import { rtrim, toKebabCase, toStudlyCase } from "@mongez/reinforcements";
 import chalk from "chalk";
 import path from "path";
-import pluralize from "pluralize";
+import { namesFactory } from "../../../factories/names-factory";
 import { throwIf } from "./../../../utils";
 import { gnWarlockOutput } from "./template";
 import { WarlockOutputOptions } from "./types";
@@ -10,19 +9,19 @@ import { WarlockOutputOptions } from "./types";
 export const generate = async (options: WarlockOutputOptions) => {
   const { saveTo } = options;
 
-  options.name = pluralize(rtrim(options.name, "output"), 1);
+  const outputName = options.name;
+
+  options.name = namesFactory.outputClassName(options.name);
 
   ensureDirectory(saveTo);
 
-  options.fileName ||= `${toKebabCase(options.name)}.output`;
+  options.fileName ||= namesFactory.outputFilePath(outputName);
 
-  options.fileName = toKebabCase(options.fileName);
-
-  options.name = rtrim(toStudlyCase(options.name), "Output") + "Output";
+  const outputFilePath = options.fileName + ".ts";
 
   const now = Date.now();
 
-  const Path = path.join(saveTo, `${options.fileName}.ts`);
+  const Path = path.join(saveTo, outputFilePath);
 
   throwIf(
     fileExists(Path),
@@ -38,7 +37,7 @@ export const generate = async (options: WarlockOutputOptions) => {
     ` ${chalk.green(
       options.name,
     )} has been generated successfully in ${chalk.cyan(
-      saveTo + "/" + options.fileName,
+      saveTo + "/" + outputFilePath,
     )} ${chalk.gray(`(${Date.now() - now}ms)`)}`,
   );
 

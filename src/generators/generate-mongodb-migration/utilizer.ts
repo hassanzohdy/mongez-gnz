@@ -1,4 +1,4 @@
-import { toCamelCase, toKebabCase } from "@mongez/reinforcements";
+import { toCamelCase } from "@mongez/reinforcements";
 import { newLine } from "./../../utils";
 import { UtilizeMigrationOptions } from "./types";
 
@@ -93,7 +93,7 @@ export function utilizeMigration({
     geoIndexesDown,
   ].filter(indexes => indexes.length > 0);
 
-  const modelFileName = (modelPath || toKebabCase(modelClass)) + ".model";
+  const modelFileName = modelPath;
 
   return {
     modelFileName,

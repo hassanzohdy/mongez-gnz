@@ -1,5 +1,5 @@
 import { ensureDirectory, putFile } from "@mongez/fs";
-import { toCamelCase, toKebabCase, toStudlyCase } from "@mongez/reinforcements";
+import { toCamelCase, toKebabCase } from "@mongez/reinforcements";
 import chalk from "chalk";
 import path from "path";
 import pluralize from "pluralize";
@@ -15,7 +15,9 @@ import { WarlockModuleOptions } from "./types";
 export const generate = async (options: WarlockModuleOptions) => {
   const now = Date.now();
 
-  options.saveTo = path.resolve(options.saveTo, toKebabCase(options.name));
+  options.saveTo = options.subModule
+    ? options.saveTo
+    : path.resolve(options.saveTo, toKebabCase(options.name));
 
   const { name, saveTo } = options;
 
@@ -64,7 +66,7 @@ export const generate = async (options: WarlockModuleOptions) => {
   // generate the list controller
   await gnz.execute(
     generateWarlockHandler.execute({
-      name: `get${toStudlyCase(pluralize(options.name))}-list`,
+      name: "list-" + options.name,
       saveTo: saveTo + "/controllers",
       imports: [
         `import { ${repositoryOptions.exportName} } from "../repositories/${repositoryOptions.fileName}";`,
@@ -87,7 +89,7 @@ export const generate = async (options: WarlockModuleOptions) => {
   // generate the get controller
   await gnz.execute(
     generateWarlockHandler.execute({
-      name: `get${toStudlyCase(pluralize(options.name, 1))}`,
+      name: "get-" + options.name,
       saveTo: saveTo + "/controllers",
       imports: [
         `import { ${repositoryOptions.exportName} } from "../repositories/${repositoryOptions.fileName}";`,

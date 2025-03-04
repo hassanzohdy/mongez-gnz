@@ -1,4 +1,10 @@
-import { ltrim, toKebabCase, toStudlyCase } from "@mongez/reinforcements";
+import {
+  ltrim,
+  toCamelCase,
+  toKebabCase,
+  toStudlyCase,
+} from "@mongez/reinforcements";
+import pluralize from "pluralize";
 
 export const namesFactory = {
   qwikComponent(name: string) {
@@ -14,5 +20,54 @@ export const namesFactory = {
   },
   qwikPagePath(name: string) {
     return ltrim(name, "/");
+  },
+  // Warlock.js
+  routePath(name: string) {
+    return `/${toKebabCase(pluralize(name))}`;
+  },
+  repositoryClassName(name: string) {
+    return `${pluralize(toStudlyCase(name))}Repository`;
+  },
+  repositoryExportName(name: string) {
+    return `${pluralize(toCamelCase(name))}Repository`;
+  },
+  repositoryFilePath(name: string) {
+    return `${toKebabCase(pluralize(name))}.repository`;
+  },
+  // Database Model
+  modelTableName(name: string) {
+    return toKebabCase(pluralize(name, 1));
+  },
+  modelClassName(name: string) {
+    return toStudlyCase(pluralize(name, 1));
+  },
+  modelFilePath(name: string) {
+    return `${toKebabCase(pluralize(name, 1))}.model`;
+  },
+  modelFolderPath(name: string) {
+    return toKebabCase(pluralize(name, 1));
+  },
+  // Output
+  outputFilePath(name: string) {
+    return `${toKebabCase(pluralize(name, 1))}.output`;
+  },
+  outputClassName(name: string) {
+    return `${toStudlyCase(pluralize(name, 1))}Output`;
+  },
+  // Restful
+  restfulClassName(name: string) {
+    return `Restful${toStudlyCase(pluralize(name))}`;
+  },
+  restfulExportName(name: string) {
+    return `restful${toStudlyCase(pluralize(name))}`;
+  },
+  restfulFilePath(name: string) {
+    return `${toKebabCase(pluralize(name))}.restful`;
+  },
+  controllerName(name: string) {
+    return `get${toStudlyCase(pluralize(name))}Controller`;
+  },
+  controllerFilePath(name: string) {
+    return `${toKebabCase(pluralize(name))}.controller`;
   },
 };
