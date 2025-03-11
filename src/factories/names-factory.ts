@@ -39,7 +39,7 @@ export const namesFactory = {
   },
   // Database Model
   modelTableName(name: string) {
-    return toKebabCase(pluralize(name, 1));
+    return toCamelCase(pluralize(name));
   },
   modelClassName(name: string) {
     name = name.replace(/Model$/i, "");
