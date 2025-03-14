@@ -73,10 +73,10 @@ export const namesFactory = {
   },
   controllerName(name: string) {
     name = name.replace(/Controller$/i, "");
-    return `${toCamelCase(pluralize(name))}Controller`;
+    return `${toCamelCase(name)}Controller`;
   },
   controllerFilePath(name: string) {
     name = name.replace(/Controller$/i, "");
-    return `${toKebabCase(pluralize(name))}.controller`;
+    return `${toKebabCase(name)}.controller`;
   },
 };
