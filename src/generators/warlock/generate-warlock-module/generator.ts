@@ -9,7 +9,11 @@ import { generateWarlockRepository } from "../generate-warlock-repository";
 import { generateWarlockRestful } from "../generate-warlock-restful-controller";
 import { gnz } from "./../../../main";
 import { generateMongoDBModel } from "./../../generate-mongodb-model";
-import { generateModuleRoutesContent, getLocalesContent } from "./template";
+import {
+  generateModuleRoutesContent,
+  generateSubModuleRoutesContent,
+  getLocalesContent,
+} from "./template";
 import { WarlockModuleOptions } from "./types";
 
 export const generate = async (options: WarlockModuleOptions) => {
@@ -131,10 +135,15 @@ export const generate = async (options: WarlockModuleOptions) => {
   }
 
   // routes file
-  putFile(
-    path.join(saveTo + "/routes.ts"),
-    await generateModuleRoutesContent(options),
-  );
+  const routesPath = path.join(saveTo + "/routes.ts");
+  if (options.subModule) {
+    putFile(
+      routesPath,
+      await generateSubModuleRoutesContent(options, routesPath),
+    );
+  } else {
+    putFile(routesPath, await generateModuleRoutesContent(options));
+  }
 
   console.log(
     ` ${chalk.green(
